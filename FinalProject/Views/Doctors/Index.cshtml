@@ -1,0 +1,59 @@
+﻿@model DoctorsIndexVM
+@{
+    ViewData["Title"] = "Həkimlər";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/doctors.css" />
+}
+
+<div class="container">
+    <header class="page-head">
+        <div class="head-row">
+            <div><h1>@Model.CityTitle</h1></div>
+
+            <div class="filters">
+                <select class="pill-select" aria-label="Təcrübəyə görə">
+                    <option>Təcrübəyə görə</option>
+                </select>
+                <select class="pill-select" aria-label="Əlifba sırası">
+                    <option>Əlifba sırası</option>
+                </select>
+                <select class="pill-select" aria-label="Kateqoriya">
+                    <option>Bütün kateqoriyalar</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <section class="grid" aria-label="Doctors grid">
+        @foreach (var d in Model.Doctors)
+        {
+            <article class="doc-card" data-name="@d.FullName" data-exp="@d.ExperienceYears" data-cat="@d.Speciality">
+                <div class="doc-body">
+                    <div class="avatar-wrap">
+                        <img src="@d.PhotoUrl" alt="@d.FullName" />
+                        <span class="ig-badge" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="name-row">
+                        <h3 class="doc-name">@d.FullName</h3>
+                        <span class="verified" aria-label="Verified"></span>
+                    </div>
+
+                    <a class="spec" href="#">@d.Speciality</a>
+
+                    <div class="meta">
+                        <div>İş stajı (il): @d.ExperienceYears</div>
+                        <div>@d.Clinic</div>
+                    </div>
+                </div>
+
+                <div class="doc-actions">
+                    <a class="btn" href="/doctors/@d.Slug">Ətraflı</a>
+                    <a class="btn primary" href="/booking/@d.Slug">Qəbul üçün yazıl</a>
+                </div>
+            </article>
+        }
+    </section>
+</div>

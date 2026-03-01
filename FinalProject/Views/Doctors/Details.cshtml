@@ -1,0 +1,36 @@
+﻿@model DoctorDetailsVM
+@{
+    ViewData["Title"] = Model.FullName;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/doctor.css" />
+}
+
+<div class="container">
+    <section class="doc-hero card" style="margin-top:18px; padding:18px;">
+        <div class="doc-hero-grid">
+            <div class="doc-avatar">
+                <img src="@Model.PhotoUrl" alt="@Model.FullName" />
+                <span class="ig-badge" aria-hidden="true"></span>
+            </div>
+
+            <div class="doc-main">
+                <div class="doc-title-row">
+                    <h1 class="doc-title">@Model.FullName <span class="verified"></span></h1>
+                    <a class="doc-tag" href="#">@Model.Speciality</a>
+                </div>
+
+                <div class="doc-kv">
+                    <div><span class="k">İş stajı (il):</span> <span class="v">@Model.ExperienceYears</span></div>
+                    <div><span class="k">Klinika:</span> <span class="v">@Model.Clinic</span></div>
+                </div>
+
+                <div class="doc-hero-actions">
+                    <a class="btn light" href="/doctors">← Siyahıya qayıt</a>
+                    <a class="btn primary" href="/booking/@Model.Slug">Qəbul üçün yazıl</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

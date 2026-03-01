@@ -1,0 +1,77 @@
+﻿@model BookingCreateVM
+@{
+    ViewData["Title"] = "Qəbul üçün yazıl";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/assets/css/doctor.css" />
+}
+
+<div class="container" style="margin-top:18px;">
+    <section class="card block">
+        <h2 class="h2">Qəbul üçün yazıl</h2>
+        <p class="muted">Həkim: <strong>@Model.DoctorName</strong></p>
+
+        <form method="post">
+            <div class="form-grid">
+                <div class="field">
+                    <label class="label" asp-for="FirstName"></label>
+                    <input class="input" asp-for="FirstName" />
+                    <span class="muted" asp-validation-for="FirstName"></span>
+                </div>
+
+                <div class="field">
+                    <label class="label" asp-for="LastName"></label>
+                    <input class="input" asp-for="LastName" />
+                    <span class="muted" asp-validation-for="LastName"></span>
+                </div>
+
+                <div class="field">
+                    <label class="label" asp-for="Phone"></label>
+                    <input class="input" asp-for="Phone" />
+                    <span class="muted" asp-validation-for="Phone"></span>
+                </div>
+
+                <div class="field">
+                    <label class="label" asp-for="Email"></label>
+                    <input class="input" asp-for="Email" />
+                    <span class="muted" asp-validation-for="Email"></span>
+                </div>
+
+                <div class="field">
+                    <label class="label" asp-for="Date"></label>
+                    <input class="input" asp-for="Date" type="date" />
+                    <span class="muted" asp-validation-for="Date"></span>
+                </div>
+
+                <div class="field">
+                    <label class="label" asp-for="Time"></label>
+                    <select class="input" asp-for="Time">
+                        <option value="">— seçin —</option>
+                        <option>15:00</option>
+                        <option>15:30</option>
+                        <option>16:00</option>
+                        <option>16:30</option>
+                        <option>17:00</option>
+                    </select>
+                    <span class="muted" asp-validation-for="Time"></span>
+                </div>
+
+                <div class="field field-full">
+                    <label class="label" asp-for="Comment"></label>
+                    <textarea class="input textarea" asp-for="Comment" rows="3"></textarea>
+                    <span class="muted" asp-validation-for="Comment"></span>
+                </div>
+            </div>
+
+            <div class="book-actions">
+                <button class="btn outline" type="reset">Ləğv et</button>
+                <button class="btn primary" type="submit">Göndər</button>
+            </div>
+        </form>
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
