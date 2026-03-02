@@ -1,6 +1,22 @@
-﻿namespace FinalProject.Data
+﻿using FinalProject.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace FinalProject.Data;
+
+public class AppDbContext : DbContext
 {
-    public class AppDbContext
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    public DbSet<Doctor> Doctors => Set<Doctor>();
+    public DbSet<Speciality> Specialities => Set<Speciality>();
+    public DbSet<Appointment> Appointments => Set<Appointment>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Doctor>()
+            .HasIndex(x => x.Slug)
+            .IsUnique();
     }
 }

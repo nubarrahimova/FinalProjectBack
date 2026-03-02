@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using FinalProject.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalProject;
 
@@ -12,6 +14,10 @@ public class Program
         {
             options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
         });
+        builder.Services.AddDbContext<AppDbContext>
+            (options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    );
 
         var app = builder.Build();
 

@@ -1,5 +1,16 @@
-﻿using FinalProject.ViewModels;
+﻿using FinalProject.Controllers;
+using FinalProject.Data;
+using FinalProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
+
+private readonly AppDbContext _context;
+
+public DoctorsController(AppDbContext context)
+{
+    _context = context;
+}
 
 namespace FinalProject.Controllers
 {
@@ -13,8 +24,8 @@ namespace FinalProject.Controllers
                 CityTitle = "Bakıda həkimlər",
                 Doctors = new List<DoctorCardVM>
             {
-                new("dr.xuraman-qaribova", "Dr. Xuraman Qaribova", "Ginekoloq", 17, "HTCcliniva hospital", "/assets/images/doctor1.jpg"),
-                new("dr.ceyran-imameliyeva", "Dr. Ceyran İmaməliyeva", "Ginekoloq", 9, "4 Saylı Qadın Məsləhətxanası", "/assets/images/doctor2.jpg"),
+                new("dr.xuraman-qaribova", "Dr. Xuraman Qaribova", "Ginekoloq", 17, "HTCcliniva hospital", "/assets/images/xuraman-qaribova.jpg"),
+                new("dr.ceyran-imameliyeva", "Dr. Ceyran İmaməliyeva", "Ginekoloq", 9, "4 Saylı Qadın Məsləhətxanası", "/assets/images/ceyran-imamaliyeva.jpg"),
             }
             };
 
@@ -30,7 +41,7 @@ namespace FinalProject.Controllers
                 Speciality = "Ginekoloq",
                 ExperienceYears = 17,
                 Clinic = "HTCcliniva hospital",
-                PhotoUrl = "/assets/images/doctor1.jpg"
+                PhotoUrl = "/assets/images/xuraman-qaribova.jpg"
             };
 
             return View(vm);
