@@ -20,6 +20,7 @@ public class Program
     );
 
         var app = builder.Build();
+        DbInitializer.Seed(app);
 
         if (!app.Environment.IsDevelopment())
         {

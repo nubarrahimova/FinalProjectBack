@@ -1,47 +1,64 @@
-﻿using FinalProject.Controllers;
-using FinalProject.Data;
+﻿using FinalProject.Data;
 using FinalProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
-
-private readonly AppDbContext _context;
-
-public DoctorsController(AppDbContext context)
-{
-    _context = context;
-}
+using System.Threading.Tasks;
 
 namespace FinalProject.Controllers
 {
+
     public class DoctorsController : Controller
     {
+     
+    private readonly AppDbContext _context;
+
+    public DoctorsController(AppDbContext context)
+    {
+        _context = context;
+    }
+
         [HttpGet("/doctors")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var doctorsFromDb = await _context.Doctors
+                .Include(d => d.Speciality)
+                .Select(d => new DoctorCardVM(
+                    d.Slug,
+                    d.FullName,
+                    d.Speciality != null ? d.Speciality.Name : "",
+                    d.ExperienceYears,
+                    d.Clinic ?? "",
+                    d.PhotoUrl ?? ""
+                ))
+                .ToListAsync();
+
             var vm = new DoctorsIndexVM
             {
                 CityTitle = "Bakıda həkimlər",
-                Doctors = new List<DoctorCardVM>
-            {
-                new("dr.xuraman-qaribova", "Dr. Xuraman Qaribova", "Ginekoloq", 17, "HTCcliniva hospital", "/assets/images/xuraman-qaribova.jpg"),
-                new("dr.ceyran-imameliyeva", "Dr. Ceyran İmaməliyeva", "Ginekoloq", 9, "4 Saylı Qadın Məsləhətxanası", "/assets/images/ceyran-imamaliyeva.jpg"),
-            }
+                Doctors = doctorsFromDb
             };
 
             return View(vm);
         }
-
-        public IActionResult Details(string slug)
+        [HttpGet("doctors/{slug}")]
+        public async Task<IActionResult> Details(string slug)
         {
+            var doctor = await _context.Doctors
+                .Include(d => d.Speciality)
+                .FirstOrDefaultAsync(d => d.Slug == slug);
+
+            if (doctor == null)
+                return NotFound();
+
             var vm = new DoctorDetailsVM
             {
-                Slug = slug,
-                FullName = "Dr. Xuraman Qaribova",
-                Speciality = "Ginekoloq",
-                ExperienceYears = 17,
-                Clinic = "HTCcliniva hospital",
-                PhotoUrl = "/assets/images/xuraman-qaribova.jpg"
+                Slug = doctor.Slug,
+                FullName = doctor.FullName,
+                Speciality = doctor.Speciality != null ? doctor.Speciality.Name : "",
+                ExperienceYears = doctor.ExperienceYears,
+                Clinic = doctor.Clinic ?? "",
+                PhotoUrl = doctor.PhotoUrl ?? ""
             };
 
             return View(vm);

@@ -5,7 +5,7 @@ namespace FinalProject.Controllers
 {
     public class BookingController : Controller
     {
-        [HttpGet]
+        [HttpGet("/booking/{slug}")]
         public IActionResult Create(string slug)
         {
             var vm = new BookingCreateVM
@@ -17,7 +17,7 @@ namespace FinalProject.Controllers
             return View(vm);
         }
 
-        [HttpPost]
+        [HttpPost("/booking/{slug}")]
         public IActionResult Create(string slug, BookingCreateVM model)
         {
             if (!ModelState.IsValid)
@@ -35,4 +35,3 @@ namespace FinalProject.Controllers
         }
     }
 }
-
