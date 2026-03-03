@@ -32,6 +32,7 @@ public class Program
         app.UseStaticFiles();
         app.UseRouting();
 
+
         app.MapControllerRoute(
             name: "doctorDetails",
             pattern: "doctors/{slug}",
@@ -39,10 +40,14 @@ public class Program
         );
 
         app.MapControllerRoute(
-            name: "booking",
-            pattern: "booking/{slug}",
-            defaults: new { controller = "Booking", action = "Create" }
+    name: "areas",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
         );
+        //app.MapControllerRoute(
+        //    name: "booking",
+        //    pattern: "booking/{slug}",
+        //    defaults: new { controller = "Booking", action = "Create" }
+        //);
 
         app.MapControllerRoute(
             name: "default",

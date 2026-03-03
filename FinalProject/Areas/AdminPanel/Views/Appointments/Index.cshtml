@@ -1,0 +1,33 @@
+﻿@model List<FinalProject.Models.Appointment>
+
+<h2>Appointments</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Doctor</th>
+            <th>First</th>
+            <th>Last</th>
+            <th>Phone</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.Id</td>
+                <td>@(a.Doctor != null ? a.Doctor.FullName : a.DoctorId.ToString())</td>
+                <td>@a.FirstName</td>
+                <td>@a.LastName</td>
+                <td>@a.Phone</td>
+                <td>@a.Date.ToString("yyyy-MM-dd")</td>
+                <td>@a.Time</td>
+                <td>@a.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>

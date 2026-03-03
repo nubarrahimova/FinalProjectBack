@@ -12,7 +12,7 @@
         <h2 class="h2">Qəbul üçün yazıl</h2>
         <p class="muted">Həkim: <strong>@Model.DoctorName</strong></p>
 
-        <form asp-controller="Booking" asp-action="Create" asp-route-slug="@Model.DoctorSlug" method="post">
+        <form method="post">
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="DoctorSlug" />
             <div asp-validation-summary="All" class="muted"></div>
