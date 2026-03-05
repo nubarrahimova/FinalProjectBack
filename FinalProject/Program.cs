@@ -43,16 +43,18 @@ public class Program
     name: "areas",
     pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
         );
-        //app.MapControllerRoute(
-        //    name: "booking",
-        //    pattern: "booking/{slug}",
-        //    defaults: new { controller = "Booking", action = "Create" }
-        //);
+   
+        app.MapControllerRoute(
+     name: "admin",
+     pattern: "admin/{controller=Appointments}/{action=Index}/{id?}",
+     defaults: new { area = "AdminPanel" }
+        );
+
 
         app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}"
-        );
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
         app.Run();
     }

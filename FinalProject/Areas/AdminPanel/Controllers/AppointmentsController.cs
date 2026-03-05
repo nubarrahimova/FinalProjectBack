@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinalProject.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("AdminPanel")]
     public class AppointmentsController : Controller
     {
         private readonly AppDbContext _context;
