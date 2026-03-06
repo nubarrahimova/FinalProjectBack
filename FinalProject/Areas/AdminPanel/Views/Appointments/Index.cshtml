@@ -1,18 +1,25 @@
 ﻿@model List<FinalProject.Models.Appointment>
 
 <h2>Appointments</h2>
+<p>
+    <a asp-action="Index">Hamısı</a> |
+    <a asp-action="Index" asp-route-status="New">Yeni</a> |
+    <a asp-action="Index" asp-route-status="Approved">Təsdiqləndi</a> |
+    <a asp-action="Index" asp-route-status="Rejected">Rədd edildi</a>
+</p>
 
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
             <th>Doctor</th>
-            <th>First</th>
-            <th>Last</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Phone</th>
             <th>Date</th>
             <th>Time</th>
             <th>Status</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +33,40 @@
                 <td>@a.Phone</td>
                 <td>@a.Date.ToString("yyyy-MM-dd")</td>
                 <td>@a.Time</td>
-                <td>@a.Status</td>
+                <td>
+                    @if (a.Status == "Approved")
+                    {
+                        <span style="color:green">Təsdiqləndi</span>
+                    }
+                    else if (a.Status == "Rejected")
+                    {
+                        <span style="color:red">Rədd edildi</span>
+                    }
+                    else
+                    {
+                        <span>Yeni</span>
+                    }
+                </td>
+                <td>
+                    <form asp-area="AdminPanel" asp-controller="Appointments" asp-action="Approve" asp-route-id="@a.Id" method="post" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit">Approve</button>
+                    </form>
+
+                    <form asp-area="AdminPanel" asp-controller="Appointments" asp-action="Reject" asp-route-id="@a.Id" method="post" style="display:inline; margin-left:6px;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit">Reject</button>
+                    </form>
+                    <form asp-area="AdminPanel" asp-controller="Appointments"
+                          asp-action="Delete" asp-route-id="@a.Id"
+                          method="post" style="display:inline">
+
+                        @Html.AntiForgeryToken()
+
+                        <button type="submit">Sil</button>
+
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
