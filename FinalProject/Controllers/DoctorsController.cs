@@ -41,7 +41,7 @@ namespace FinalProject.Controllers
 
             return View(vm);
         }
-        [HttpGet("doctors/{slug}")]
+        [HttpGet("/doctors/{slug}")]
         public async Task<IActionResult> Details(string slug)
         {
             var doctor = await _context.Doctors
@@ -58,7 +58,38 @@ namespace FinalProject.Controllers
                 Speciality = doctor.Speciality != null ? doctor.Speciality.Name : "",
                 ExperienceYears = doctor.ExperienceYears,
                 Clinic = doctor.Clinic ?? "",
-                PhotoUrl = doctor.PhotoUrl ?? ""
+                PhotoUrl = doctor.PhotoUrl ?? "",
+
+                LastPeriodDate = null,
+                CycleLength = 28,
+                PeriodLength = 5,
+
+                Schedule = new List<ScheduleItemVM>
+        {
+            new() { Day = "Bazar ertəsi", Hours = "15:00 – 17:00" },
+            new() { Day = "Çərşənbə axşamı", Hours = "15:00 – 17:00" },
+            new() { Day = "Çərşənbə", Hours = "15:00 – 17:00" },
+            new() { Day = "Cümə axşamı", Hours = "15:00 – 17:00" },
+            new() { Day = "Cümə", Hours = "15:00 – 17:00" },
+            new() { Day = "Şənbə", Hours = "15:00 – 17:00" },
+            new() { Day = "Bazar", Hours = "Qəbul yoxdur" }
+        },
+
+                Services = new List<string>
+        {
+            "Hamiləlik təqibi",
+            "Ginekoloji xəstəliklərin müalicəsi",
+            "Ginekoloji əməliyyatlar",
+            "Təbii doğuş, Qeysər",
+            "Vaginizm müalicəsi"
+        },
+
+                Biography = new List<string>
+        {
+            "2000–2008-ci illərdə Tümen Dövlət Tibb Akademiyasında təhsil almışam.",
+            "2008–2017-ci illərdə Tümen vilayətində doğum evində və qadın məsləhətxanasında həkim kimi çalışmışam.",
+            "2017-ci ildən bu günə qədər Bakı şəhərində peşə fəaliyyətimi davam etdirirəm."
+        }
             };
 
             return View(vm);
