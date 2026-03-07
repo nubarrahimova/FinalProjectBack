@@ -38,16 +38,16 @@ public class Program
             pattern: "doctors/{slug}",
             defaults: new { controller = "Doctors", action = "Details" }
         );
-
-        app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
-        );
    
         app.MapControllerRoute(
      name: "admin",
      pattern: "admin/{controller=Appointments}/{action=Index}/{id?}",
      defaults: new { area = "AdminPanel" }
+        );
+
+        app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
         );
 
 

@@ -1,0 +1,50 @@
+﻿@model FinalProject.Models.Article
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Yeni məqalə</h4>
+
+                <form action="/AdminPanel/Articles/Create" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label>Başlıq</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Qısa məzmun</label>
+                        <textarea asp-for="Summary" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Məzmun</label>
+                        <textarea asp-for="Content" class="form-control" rows="10"></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Şəkil URL</label>
+                        <input asp-for="CoverImageUrl" class="form-control" />
+                    </div>
+
+                    <div class="form-check" style="margin-bottom:16px;">
+                        <input asp-for="IsPublished" class="form-check-input" />
+                        <label asp-for="IsPublished" class="form-check-label">Yayımla</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-2">Yadda saxla</button>
+                    <a href="/AdminPanel/Articles" class="btn btn-light">Geri qayıt</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

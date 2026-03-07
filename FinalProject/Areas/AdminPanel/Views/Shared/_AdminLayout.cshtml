@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/assets/admin/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/assets/admin/vendors/base/vendor.bundle.base.css">
+    <link rel="stylesheet" href="~/assets/admin/css/style.css">
+    <link rel="shortcut icon" href="~/assets/admin/images/favicon.png">
+</head>
+
+<body>
+
+    <div class="container-scroller">
+
+        <!-- NAVBAR -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+
+            <div class="navbar-brand-wrapper d-flex justify-content-center">
+                <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
+
+                    <a class="navbar-brand brand-logo" href="/AdminPanel/Appointments">
+                        <img src="~/assets/admin/images/logo.svg" alt="logo" />
+                    </a>
+
+                    <a class="navbar-brand brand-logo-mini" href="/AdminPanel/Appointments">
+                        <img src="~/assets/admin/images/logo-mini.svg" alt="logo" />
+                    </a>
+
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="mdi mdi-sort-variant"></span>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+
+                <ul class="navbar-nav mr-lg-4 w-100">
+                    <li class="nav-item nav-search d-none d-lg-block w-100">
+
+                        <div class="input-group">
+
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="mdi mdi-magnify"></i>
+                                </span>
+                            </div>
+
+                            <input type="text" class="form-control" placeholder="Axtar">
+
+                        </div>
+
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav navbar-nav-right">
+
+                    <li class="nav-item nav-profile dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+
+                            <img src="~/assets/admin/images/faces/face5.jpg" alt="profile" />
+                            <span class="nav-profile-name">Admin</span>
+
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown">
+
+                            <a class="dropdown-item" href="/">
+                                <i class="mdi mdi-web text-primary"></i>
+                                Sayta keç
+                            </a>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+
+        <div class="container-fluid page-body-wrapper">
+
+            <!-- SIDEBAR -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+
+                <ul class="nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/AdminPanel/Appointments">
+                            <i class="mdi mdi-calendar-check menu-icon"></i>
+                            <span class="menu-title">Randevular</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/AdminPanel/Articles">
+                            <i class="mdi mdi-file-document menu-icon"></i>
+                            <span class="menu-title">Məqalələr</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="mdi mdi-web menu-icon"></i>
+                            <span class="menu-title">Sayta keç</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+
+            <!-- CONTENT -->
+            <div class="main-panel">
+
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JS -->
+    <script src="~/assets/admin/vendors/base/vendor.bundle.base.js"></script>
+    <script src="~/assets/admin/js/off-canvas.js"></script>
+    <script src="~/assets/admin/js/hoverable-collapse.js"></script>
+    <script src="~/assets/admin/js/template.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
