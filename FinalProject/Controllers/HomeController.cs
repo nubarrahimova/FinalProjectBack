@@ -1,15 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FinalProject.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalProject.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly AppDbContext _context;
+
+        public HomeController(AppDbContext context)
         {
-            return View();
+            _context = context;
         }
-        public IActionResult Error()
+
+        public async Task<IActionResult> Index()
         {
+            var homeArticles = await _context.Articles
+                .Where(x => x.IsPublished)
+                .OrderByDescending(x => x.CreatedAt)
+                .Take(3)
+                .ToListAsync();
+
+            ViewBag.HomeArticles = homeArticles;
+
             return View();
         }
     }

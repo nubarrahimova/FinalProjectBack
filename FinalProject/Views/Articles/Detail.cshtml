@@ -1,0 +1,43 @@
+﻿@model FinalProject.Models.Article
+
+<a asp-controller="Home" asp-action="Index" style="color:#4a7cff; text-decoration:none;">
+    ← Ana səhifə
+</a>
+
+<section class="home-articles-section">
+    <div class="container" style="max-width:900px;">
+        <article class="home-article-card" style="padding:32px;">
+            <img src="@(string.IsNullOrWhiteSpace(Model.CoverImageUrl) ? "/images/default-article.png" : Model.CoverImageUrl)"
+                 alt="@Model.Title"
+                 style="width:100%; height:420px; object-fit:cover; border-radius:20px; margin-bottom:24px;" />
+
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                <img src="/images/doctor.png"
+                     style="width:40px; height:40px; border-radius:50%;" />
+
+                <div>
+                    <div style="font-weight:600;">Dr. Xuraman Qaribova</div>
+                    <div style="font-size:13px; color:#6b7280;">Gynecology</div>
+                </div>
+            </div>
+
+            <h1 style="margin:0 0 16px; font-size:36px; line-height:1.3; color:#18212f;">
+                @Model.Title
+            </h1>
+            <div style="font-size:14px; color:#6b7280; margin-bottom:20px;">
+                Dərc olunub: @Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Summary))
+            {
+                <p style="font-size:18px; line-height:1.8; color:#667085; margin-bottom:24px;">
+                    @Model.Summary
+                </p>
+            }
+
+            <div style="font-size:15px; line-height:1.9; color:#1f2937;">
+                @Html.Raw(Model.Content)
+            </div>
+        </article>
+    </div>
+</section>

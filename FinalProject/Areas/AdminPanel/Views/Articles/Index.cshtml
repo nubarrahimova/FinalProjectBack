@@ -17,6 +17,7 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
+                                <th>Şəkil</th>
                                 <th>Başlıq</th>
                                 <th>Slug</th>
                                 <th>Status</th>
@@ -29,6 +30,19 @@
                             {
                                 <tr>
                                     <td>@item.Id</td>
+                                    <td>
+                                        @if (!string.IsNullOrWhiteSpace(item.CoverImageUrl))
+                                        {
+                                            <img src="@item.CoverImageUrl"
+                                                 alt="@item.Title"
+                                                 style="width:70px; height:70px; object-fit:cover; border-radius:8px; border:1px solid #ddd;" />
+                                        }
+                                        else
+                                        {
+                                            <span>Şəkil yoxdur</span>
+                                        }
+                                    </td>
+
                                     <td>@item.Title</td>
                                     <td>@item.Slug</td>
                                     <td>

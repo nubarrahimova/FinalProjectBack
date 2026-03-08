@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<FinalProject.Models.Article>
+
+<section class="home-articles-section">
+    <div class="container">
+        <div class="home-articles-header">
+            <h2>Bütün məqalələr</h2>
+            <p>Yayımlanmış bütün məqalələr burada görünür.</p>
+        </div>
+
+        <div class="home-articles-grid">
+            @foreach (var item in Model)
+            {
+                <article class="home-article-card">
+                    <div class="home-article-top">
+                        <img class="home-article-avatar"
+                             src="@(string.IsNullOrWhiteSpace(item.CoverImageUrl) ? "/images/default-article.png" : item.CoverImageUrl)"
+                             alt="@item.Title" />
+
+                        <div class="home-article-meta">
+                            <h6>Xuraman Qaribova</h6>
+                            <span>Gynecology</span>
+                        </div>
+                    </div>
+
+                    <h3 class="home-article-title">
+                        <a href="/Articles/@item.Slug">@item.Title</a>
+                    </h3>
+
+                    <p class="home-article-summary">
+                        @(string.IsNullOrWhiteSpace(item.Summary)
+                                            ? (item.Content.Length > 160 ? item.Content.Substring(0, 160) + "..." : item.Content)
+                                            : item.Summary)
+                </p>
+
+                    <a class="home-article-link" href="/Articles/@item.Slug">
+                        Daha çox oxu →
+                    </a>
+                </article>
+                        }
+        </div>
+    </div>
+</section>
