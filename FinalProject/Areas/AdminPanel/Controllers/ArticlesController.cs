@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using FinalProject.Data;
 using FinalProject.Models;
+using FinalProject.ViewModels.AdminPanel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +11,12 @@ namespace FinalProject.Areas.AdminPanel.Controllers
     public class ArticlesController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _env;
 
-        public ArticlesController(AppDbContext context)
+        public ArticlesController(AppDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         public async Task<IActionResult> Index()
@@ -28,32 +31,93 @@ namespace FinalProject.Areas.AdminPanel.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(new Article());
+            return View(new ArticleFormVM());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Article model)
+        public async Task<IActionResult> Create(ArticleFormVM model)
         {
-            model.Slug = GenerateSlug(model.Title);
-            ModelState.Remove("Slug");
-
             if (!ModelState.IsValid)
                 return View(model);
 
-            model.CreatedAt = DateTime.Now;
+            var slug = GenerateSlug(model.Title);
 
-            var slugExists = await _context.Articles.AnyAsync(x => x.Slug == model.Slug);
+            var slugExists = await _context.Articles.AnyAsync(x => x.Slug == slug);
             if (slugExists)
             {
-                model.Slug = $"{model.Slug}-{DateTime.Now:yyyyMMddHHmmss}";
+                slug = $"{slug}-{DateTime.Now:yyyyMMddHHmmss}";
             }
 
-            _context.Articles.Add(model);
+            string? imageUrl = null;
+
+            if (model.CoverImageFile != null)
+            {
+                imageUrl = await SaveImageAsync(model.CoverImageFile);
+            }
+
+            var article = new Article
+            {
+                Title = model.Title,
+                Slug = slug,
+                Summary = model.Summary,
+                Content = model.Content,
+                CoverImageUrl = imageUrl,
+                CreatedAt = DateTime.Now,
+                IsPublished = model.IsPublished
+            };
+
+            _context.Articles.Add(article);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            TempData["SuccessMessage"] = "Məqalə uğurla əlavə olundu.";
+            return RedirectToAction(nameof(Success));
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(ArticleFormVM model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        var errors = ModelState
+        //            .Where(x => x.Value != null && x.Value.Errors.Count > 0)
+        //            .SelectMany(x => x.Value!.Errors.Select(e => $"{x.Key}: {e.ErrorMessage}"))
+        //            .ToList();
+
+        //        return Content("MODEL ERROR => " + string.Join(" | ", errors));
+        //    }
+
+        //    var slug = GenerateSlug(model.Title);
+
+        //    var slugExists = await _context.Articles.AnyAsync(x => x.Slug == slug);
+        //    if (slugExists)
+        //    {
+        //        slug = $"{slug}-{DateTime.Now:yyyyMMddHHmmss}";
+        //    }
+
+        //    string? imageUrl = null;
+
+        //    if (model.CoverImageFile != null)
+        //    {
+        //        imageUrl = await SaveImageAsync(model.CoverImageFile);
+        //    }
+
+        //    var article = new Article
+        //    {
+        //        Title = model.Title,
+        //        Slug = slug,
+        //        Summary = model.Summary,
+        //        Content = model.Content,
+        //        CoverImageUrl = imageUrl,
+        //        CreatedAt = DateTime.Now,
+        //        IsPublished = model.IsPublished
+        //    };
+
+        //    _context.Articles.Add(article);
+        //    await _context.SaveChangesAsync();
+
+        //    return Content("SAVE OK");
+        //}
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
@@ -62,17 +126,25 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             if (article == null)
                 return NotFound();
 
-            return View(article);
+            var vm = new ArticleFormVM
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Summary = article.Summary,
+                Content = article.Content,
+                ExistingImageUrl = article.CoverImageUrl,
+                IsPublished = article.IsPublished
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Article model)
+        public async Task<IActionResult> Edit(int id, ArticleFormVM model)
         {
             if (id != model.Id)
                 return NotFound();
-
-            ModelState.Remove("Slug");
 
             if (!ModelState.IsValid)
                 return View(model);
@@ -84,17 +156,21 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             article.Title = model.Title;
             article.Summary = model.Summary;
             article.Content = model.Content;
-            article.CoverImageUrl = model.CoverImageUrl;
             article.IsPublished = model.IsPublished;
 
             var newSlug = GenerateSlug(model.Title);
             var slugExists = await _context.Articles.AnyAsync(x => x.Slug == newSlug && x.Id != id);
-
             article.Slug = slugExists ? $"{newSlug}-{id}" : newSlug;
+
+            if (model.CoverImageFile != null)
+            {
+                article.CoverImageUrl = await SaveImageAsync(model.CoverImageFile);
+            }
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            TempData["SuccessMessage"] = "Məqalə uğurla yeniləndi.";
+            return RedirectToAction(nameof(Success));
         }
 
         [HttpPost]
@@ -108,7 +184,31 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             _context.Articles.Remove(article);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            TempData["SuccessMessage"] = "Məqalə uğurla silindi.";
+            return RedirectToAction(nameof(Success));
+        }
+
+        [HttpGet]
+        public IActionResult Success()
+        {
+            return View();
+        }
+
+        private async Task<string> SaveImageAsync(IFormFile file)
+        {
+            var uploadsFolder = Path.Combine(_env.WebRootPath, "assets", "images", "articles");
+            Directory.CreateDirectory(uploadsFolder);
+
+            var extension = Path.GetExtension(file.FileName);
+            var fileName = $"{Guid.NewGuid()}{extension}";
+            var fullPath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return $"/assets/images/articles/{fileName}";
         }
 
         private static string GenerateSlug(string text)

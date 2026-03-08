@@ -1,4 +1,4 @@
-﻿@model FinalProject.Models.Article
+﻿@model FinalProject.ViewModels.AdminPanel.ArticleFormVM
 
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -6,7 +6,7 @@
             <div class="card-body">
                 <h4 class="card-title">Məqaləni redaktə et</h4>
 
-                <form action="/AdminPanel/Articles/Edit/@Model.Id" method="post">
+                <form action="/AdminPanel/Articles/Edit/@Model.Id" method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="Id" />
 
@@ -28,13 +28,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Şəkil URL</label>
-                        <input asp-for="CoverImageUrl" class="form-control" />
+                        <label>Yeni şəkil seç</label>
+                        <input asp-for="CoverImageFile" type="file" class="form-control" />
                     </div>
 
-                    <div class="form-check" style="margin-bottom:16px;">
-                        <input asp-for="IsPublished" class="form-check-input" />
-                        <label asp-for="IsPublished" class="form-check-label">Yayımla</label>
+                    @if (!string.IsNullOrWhiteSpace(Model.ExistingImageUrl))
+                    {
+                        <div class="form-group">
+                            <label>Hazırkı şəkil</label><br />
+                            <img src="@Model.ExistingImageUrl" alt="Article image" style="max-width:200px; border-radius:8px;" />
+                        </div>
+                    }
+
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <input asp-for="IsPublished" type="checkbox" style="width:18px; height:18px;" />
+                            <label asp-for="IsPublished" style="margin:0;">Yayımla</label>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Yadda saxla</button>
