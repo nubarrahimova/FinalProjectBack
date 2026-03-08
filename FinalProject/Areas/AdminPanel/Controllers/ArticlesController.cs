@@ -73,52 +73,7 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             TempData["SuccessMessage"] = "Məqalə uğurla əlavə olundu.";
             return RedirectToAction(nameof(Success));
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(ArticleFormVM model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        var errors = ModelState
-        //            .Where(x => x.Value != null && x.Value.Errors.Count > 0)
-        //            .SelectMany(x => x.Value!.Errors.Select(e => $"{x.Key}: {e.ErrorMessage}"))
-        //            .ToList();
-
-        //        return Content("MODEL ERROR => " + string.Join(" | ", errors));
-        //    }
-
-        //    var slug = GenerateSlug(model.Title);
-
-        //    var slugExists = await _context.Articles.AnyAsync(x => x.Slug == slug);
-        //    if (slugExists)
-        //    {
-        //        slug = $"{slug}-{DateTime.Now:yyyyMMddHHmmss}";
-        //    }
-
-        //    string? imageUrl = null;
-
-        //    if (model.CoverImageFile != null)
-        //    {
-        //        imageUrl = await SaveImageAsync(model.CoverImageFile);
-        //    }
-
-        //    var article = new Article
-        //    {
-        //        Title = model.Title,
-        //        Slug = slug,
-        //        Summary = model.Summary,
-        //        Content = model.Content,
-        //        CoverImageUrl = imageUrl,
-        //        CreatedAt = DateTime.Now,
-        //        IsPublished = model.IsPublished
-        //    };
-
-        //    _context.Articles.Add(article);
-        //    await _context.SaveChangesAsync();
-
-        //    return Content("SAVE OK");
-        //}
-
+  
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {

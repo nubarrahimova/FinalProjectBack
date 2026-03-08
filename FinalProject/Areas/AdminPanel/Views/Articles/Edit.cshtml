@@ -29,16 +29,25 @@
 
                     <div class="form-group">
                         <label>Yeni şəkil seç</label>
-                        <input asp-for="CoverImageFile" type="file" class="form-control" />
+                        <input asp-for="CoverImageFile" type="file" class="form-control" id="coverImageInput" accept="image/*" />
                     </div>
 
-                    @if (!string.IsNullOrWhiteSpace(Model.ExistingImageUrl))
-                    {
-                        <div class="form-group">
-                            <label>Hazırkı şəkil</label><br />
-                            <img src="@Model.ExistingImageUrl" alt="Article image" style="max-width:200px; border-radius:8px;" />
-                        </div>
-                    }
+                    @* //sekil onizlemesi ucun *@
+                    <div class="form-group">
+                        <label>Şəkil önizləməsi</label><br />
+                        <img id="coverPreview"
+                             src="@(Model.ExistingImageUrl ?? "")"
+                             alt="Article image"
+                             style="max-width:220px; @(string.IsNullOrWhiteSpace(Model.ExistingImageUrl) ? "display:none;" : "display:block;") border-radius:10px; border:1px solid #ddd; padding:4px; cursor:pointer;" />
+                    </div>
+                    @* //sekilin basanda boyumesi *@
+                    <div id="imageModal"
+                         style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; justify-content:center; align-items:center; padding:20px;">
+                        <img id="modalImage"
+                             src="@(Model.ExistingImageUrl ?? "")"
+                             alt="Böyük şəkil"
+                             style="max-width:90%; max-height:90%; border-radius:12px; box-shadow:0 0 20px rgba(0,0,0,0.35);" />
+                    </div>
 
                     <div class="form-group" style="margin-bottom:16px;">
                         <div style="display:flex; align-items:center; gap:10px;">
@@ -56,12 +65,57 @@
     </div>
 </div>
 
+@*// text-editor *@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-
-    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+    <script 
+        src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
     <script>
-        CKEDITOR.replace('Content');
+              CKEDITOR.replace('Content');
+
+        @* //sekil onizlemesi ucun *@
+
+        const coverImageInput = document.getElementById('coverImageInput');
+        const coverPreview = document.getElementById('coverPreview');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+
+        if (coverImageInput) {
+            coverImageInput.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+
+                if (!file) {
+                    coverPreview.style.display = 'none';
+                    coverPreview.src = '';
+                    modalImage.src = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    coverPreview.src = e.target.result;
+                    modalImage.src = e.target.result;
+                    coverPreview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        if (coverPreview) {
+            coverPreview.addEventListener('click', function () {
+                if (coverPreview.src) {
+                    imageModal.style.display = 'flex';
+                }
+            });
+        }
+
+        if (imageModal) {
+            imageModal.addEventListener('click', function () {
+                imageModal.style.display = 'none';
+            });
+        }
     </script>
 }
