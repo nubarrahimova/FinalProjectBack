@@ -1,8 +1,8 @@
 ﻿@model FinalProject.Models.Article
 
-<a asp-controller="Home" asp-action="Index" style="color:#4a7cff; text-decoration:none;">
-    ← Ana səhifə
-</a>
+<div style="margin: 24px auto 0; width: min(1120px, calc(100% - 48px));">
+    <a href="/" style="color:#4a7cff; text-decoration:none;">← Ana səhifə</a>
+</div>
 
 <section class="home-articles-section">
     <div class="container" style="max-width:900px;">
@@ -13,7 +13,8 @@
 
             <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
                 <img src="/images/doctor.png"
-                     style="width:40px; height:40px; border-radius:50%;" />
+                     alt="Doctor"
+                     style="width:40px; height:40px; border-radius:50%; object-fit:cover;" />
 
                 <div>
                     <div style="font-weight:600;">Dr. Xuraman Qaribova</div>
@@ -24,8 +25,9 @@
             <h1 style="margin:0 0 16px; font-size:36px; line-height:1.3; color:#18212f;">
                 @Model.Title
             </h1>
+
             <div style="font-size:14px; color:#6b7280; margin-bottom:20px;">
-                Dərc olunub: @Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")
+                Dərc olunub: @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")
             </div>
 
             @if (!string.IsNullOrWhiteSpace(Model.Summary))
