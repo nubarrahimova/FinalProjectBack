@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FinalProject.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalProject.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    [Authorize(Roles = "Admin")]
     public class AppointmentsController : Controller
     {
         private readonly AppDbContext _context;
