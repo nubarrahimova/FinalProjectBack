@@ -6,6 +6,24 @@
             <div class="card-body">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
                     <h4 class="card-title" style="margin:0;">Məqalələr</h4>
+                    @* //axtaris etmek (search) *@
+                    <form method="get" action="/AdminPanel/Articles" style="margin-bottom:20px;">
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <input type="text"
+                                   name="search"
+                                   value="@ViewBag.Search"
+                                   class="form-control"
+                                   placeholder="Başlıq, slug, müəllif və ya ixtisas axtar..." />
+
+                            <button type="submit" class="btn btn-primary">
+                                Axtar
+                            </button>
+
+                            <a href="/AdminPanel/Articles" class="btn btn-light">
+                                Təmizlə
+                            </a>
+                        </div>
+                    </form>
 
                     <a href="/AdminPanel/Articles/Create" class="btn btn-primary">
                         Yeni məqalə
@@ -13,62 +31,100 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>Id</th>
                                 <th>Şəkil</th>
+                                <th>Müəllif</th>
+                                <th>İxtisas</th>
                                 <th>Başlıq</th>
                                 <th>Slug</th>
                                 <th>Status</th>
-                                <th>Tarix</th>
-                                <th>Hərəkətlər</th>
+                                <th style="white-space: nowrap;">Tarix</th>
+                                <th style="white-space: nowrap;">Hərəkətlər</th>
+                              
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
+
                                     <td>@item.Id</td>
+
                                     <td>
-                                        @if (!string.IsNullOrWhiteSpace(item.CoverImageUrl))
-                                        {
-                                            <img src="@item.CoverImageUrl"
-                                                 alt="@item.Title"
-                                                 style="width:70px; height:70px; object-fit:cover; border-radius:8px; border:1px solid #ddd;" />
-                                        }
-                                        else
-                                        {
-                                            <span>Şəkil yoxdur</span>
-                                        }
+                                        <img src="@(string.IsNullOrWhiteSpace(item.CoverImageUrl)
+                                                         ? "/images/default-article.png"
+                                                         : item.CoverImageUrl)"
+                                         alt="@item.Title"
+                                         style="width:60px; height:60px; object-fit:cover; border-radius:8px;" />
+                                </td>
+
+                                    <td>@item.AuthorName</td>
+
+                                    <td>@item.AuthorSpecialty</td>
+
+                                    <td style="max-width:280px;">
+                                        @item.Title
                                     </td>
 
-                                    <td>@item.Title</td>
-                                    <td>@item.Slug</td>
-                                    <td>
-                                        @if (item.IsPublished)
-                                        {
-                                            <label class="badge badge-success" style="color:black;">Yayımlanıb</label>
-                                        }
-                                        else
-                                        {
-                                            <label class="badge badge-warning" style="color:black;">Draft</label>
-                                        }
+                                    <td style="color:#6b7280;">
+                                        @item.Slug
                                     </td>
-                                    <td>@item.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
-                                    <td>
-                                        <a href="/AdminPanel/Articles/Edit/@item.Id" class="btn btn-sm btn-warning">
-                                            Edit
-                                        </a>
 
-                                        <form action="/AdminPanel/Articles/Delete/@item.Id" method="post" style="display:inline-block; margin-left:6px;">
+                                    <td>
+                                        <form action="/AdminPanel/Articles/ToggleStatus/@item.Id" method="post" style="margin:0;">
                                             @Html.AntiForgeryToken()
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Silmək istədiyinizə əminsiniz?')">
-                                                Delete
-                                            </button>
+
+                                        @if (item.IsPublished)
+                                            {
+                                                <button type="submit"
+                                                        class="btn btn-sm"
+                                                        style="background:#16a34a; color:white; min-width:110px; border:none;">
+                                                    Yayımlanıb
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button type="submit"
+                                                        class="btn btn-sm"
+                                                        style="background:#f59e0b; color:white; min-width:110px; border:none;">
+                                                    Draft
+                                                </button>
+                                            }
                                         </form>
                                     </td>
+
+                                    <td style="white-space:nowrap;">
+                                        @item.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                                    </td>
+
+                                    <td style="white-space:nowrap;">
+                                        <div style="display:flex; align-items:center; gap:8px;">
+
+                                            <a href="/AdminPanel/Articles/Edit/@item.Id"
+                                               class="btn btn-sm btn-warning"
+                                               style="min-width:70px;">
+                                                Edit
+                                            </a>
+
+                                            <form action="/AdminPanel/Articles/Delete/@item.Id"
+                                                  method="post"
+                                                  style="margin:0;">
+                                                @Html.AntiForgeryToken()
+
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-danger"
+                                                        style="min-width:70px;"
+                                                        onclick="return confirm('Silmək istədiyinizə əminsiniz?')">
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
+
                                 </tr>
                             }
                         </tbody>

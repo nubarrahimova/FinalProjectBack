@@ -21,5 +21,8 @@ namespace FinalProject.ViewModels.AdminPanel
         public string? ExistingImageUrl { get; set; }
 
         public bool IsPublished { get; set; }
+
+        public string? AuthorName { get; set; }
+        public string? AuthorSpecialty { get; set; }
     }
 }

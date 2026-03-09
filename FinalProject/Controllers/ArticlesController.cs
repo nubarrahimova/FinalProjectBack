@@ -2,10 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using FinalProject.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 namespace FinalProject.Controllers
 {
     public class ArticlesController : Controller

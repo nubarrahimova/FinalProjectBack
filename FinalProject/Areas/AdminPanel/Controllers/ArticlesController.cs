@@ -18,16 +18,29 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             _context = context;
             _env = env;
         }
-
-        public async Task<IActionResult> Index()
+        //axtaris etmek (search)
+        public async Task<IActionResult> Index(string? search)
         {
-            var items = await _context.Articles
+            var query = _context.Articles.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(x =>
+                    x.Title.Contains(search) ||
+                    x.Slug.Contains(search) ||
+                    (x.AuthorName != null && x.AuthorName.Contains(search)) ||
+                    (x.AuthorSpecialty != null && x.AuthorSpecialty.Contains(search))
+                );
+            }
+
+            var items = await query
                 .OrderByDescending(x => x.Id)
                 .ToListAsync();
 
+            ViewBag.Search = search;
+
             return View(items);
         }
-
         [HttpGet]
         public IActionResult Create()
         {
@@ -64,7 +77,9 @@ namespace FinalProject.Areas.AdminPanel.Controllers
                 Content = model.Content,
                 CoverImageUrl = imageUrl,
                 CreatedAt = DateTime.Now,
-                IsPublished = model.IsPublished
+                IsPublished = model.IsPublished,
+                AuthorName = model.AuthorName,
+                AuthorSpecialty = model.AuthorSpecialty,
             };
 
             _context.Articles.Add(article);
@@ -88,7 +103,9 @@ namespace FinalProject.Areas.AdminPanel.Controllers
                 Summary = article.Summary,
                 Content = article.Content,
                 ExistingImageUrl = article.CoverImageUrl,
-                IsPublished = article.IsPublished
+                IsPublished = article.IsPublished,
+                AuthorName = article.AuthorName,
+                AuthorSpecialty = article.AuthorSpecialty
             };
 
             return View(vm);
@@ -112,6 +129,8 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             article.Summary = model.Summary;
             article.Content = model.Content;
             article.IsPublished = model.IsPublished;
+            article.AuthorName = model.AuthorName;
+            article.AuthorSpecialty = model.AuthorSpecialty;
 
             var newSlug = GenerateSlug(model.Title);
             var slugExists = await _context.Articles.AnyAsync(x => x.Slug == newSlug && x.Id != id);
@@ -149,6 +168,21 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleStatus(int id)
+        {
+            var article = await _context.Articles.FindAsync(id);
+
+            if (article == null)
+                return NotFound();
+
+            article.IsPublished = !article.IsPublished;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
         private async Task<string> SaveImageAsync(IFormFile file)
         {
             var uploadsFolder = Path.Combine(_env.WebRootPath, "assets", "images", "articles");

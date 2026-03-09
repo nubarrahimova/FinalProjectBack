@@ -24,5 +24,7 @@ namespace FinalProject.Models
         public DateTime CreatedAt { get; set; }
 
         public bool IsPublished { get; set; }
+        public string? AuthorName { get; set; }
+        public string? AuthorSpecialty { get; set; }
     }
 }
