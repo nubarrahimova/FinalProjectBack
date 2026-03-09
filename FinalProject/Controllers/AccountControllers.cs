@@ -62,35 +62,27 @@ namespace FinalProject.Controllers
                 return View(model);
             }
 
-            if (await _userManager.IsInRoleAsync(user, "Admin"))
+            if (await _userManager.IsInRoleAsync(user, "Admin") || await _userManager.IsInRoleAsync(user, "Doctor"))
             {
                 if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
                     return Redirect(returnUrl);
                 }
 
-                return RedirectToAction("Index", "Articles", new { area = "AdminPanel" });
+                return RedirectToAction("Index", "Appointments", new { area = "AdminPanel" });
             }
 
             await _signInManager.SignOutAsync();
             ModelState.AddModelError(string.Empty, "Bu panelə giriş icazəniz yoxdur.");
             return View(model);
         }
-
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult AccessDenied()
-        {
-            return View();
+            return RedirectToAction("Login", "Account", new { area = "" });
         }
     }
 }

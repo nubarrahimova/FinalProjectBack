@@ -22,4 +22,6 @@ public class Doctor
 
     public int SpecialityId { get; set; }
     public Speciality? Speciality { get; set; }
+    public string? AppUserId { get; set; }
+    public AppUser? AppUser { get; set; }
 }

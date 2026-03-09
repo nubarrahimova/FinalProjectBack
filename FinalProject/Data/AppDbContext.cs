@@ -20,5 +20,28 @@ public class AppDbContext : IdentityDbContext<AppUser>
         modelBuilder.Entity<Doctor>()
             .HasIndex(x => x.Slug)
             .IsUnique();
+
+        modelBuilder.Entity<Doctor>()
+            .HasIndex(x => x.AppUserId)
+            .IsUnique()
+            .HasFilter("[AppUserId] IS NOT NULL");
+
+        modelBuilder.Entity<Doctor>()
+            .HasOne(x => x.AppUser)
+            .WithMany()
+            .HasForeignKey(x => x.AppUserId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Appointment>()
+            .HasOne(x => x.Doctor)
+            .WithMany()
+            .HasForeignKey(x => x.DoctorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Article>()
+            .HasOne(x => x.Doctor)
+            .WithMany()
+            .HasForeignKey(x => x.DoctorId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

@@ -27,6 +27,15 @@
                 <a href="/#about">Haqqında</a>
                 <a href="/#contacts">Əlaqə</a>
                 <a href="/#policy">Siyasət</a>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a href="/AdminPanel/Appointments" class="btn btn-primary">Kabinet</a>
+                }
+                else
+                {
+                    <a href="/Account/Login" class="btn btn-outline-primary">Həkim/Admin girişi</a>
+                }
             </nav>
         </div>
     </header>

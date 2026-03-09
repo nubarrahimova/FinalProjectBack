@@ -24,5 +24,6 @@ namespace FinalProject.ViewModels.AdminPanel
 
         public string? AuthorName { get; set; }
         public string? AuthorSpecialty { get; set; }
+        public int? DoctorId { get; set; }
     }
 }

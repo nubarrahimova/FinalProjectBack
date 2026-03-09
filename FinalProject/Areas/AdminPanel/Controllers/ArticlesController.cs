@@ -5,11 +5,12 @@ using FinalProject.ViewModels.AdminPanel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace FinalProject.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Doctor")]
     public class ArticlesController : Controller
     {
         private readonly AppDbContext _context;
@@ -20,10 +21,24 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             _context = context;
             _env = env;
         }
-        //axtaris etmek (search)
+
         public async Task<IActionResult> Index(string? search)
         {
-            var query = _context.Articles.AsQueryable();
+            var query = _context.Articles
+                .Include(x => x.Doctor)
+                .AsQueryable();
+
+            if (User.IsInRole("Doctor"))
+            {
+                var currentDoctor = await GetCurrentDoctorAsync();
+
+                if (currentDoctor == null)
+                {
+                    return Forbid();
+                }
+
+                query = query.Where(x => x.DoctorId == currentDoctor.Id);
+            }
 
             if (!string.IsNullOrWhiteSpace(search))
             {
@@ -43,6 +58,7 @@ namespace FinalProject.Areas.AdminPanel.Controllers
 
             return View(items);
         }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -71,6 +87,18 @@ namespace FinalProject.Areas.AdminPanel.Controllers
                 imageUrl = await SaveImageAsync(model.CoverImageFile);
             }
 
+            Doctor? currentDoctor = null;
+
+            if (User.IsInRole("Doctor"))
+            {
+                currentDoctor = await GetCurrentDoctorAsync();
+
+                if (currentDoctor == null)
+                {
+                    return Forbid();
+                }
+            }
+
             var article = new Article
             {
                 Title = model.Title,
@@ -80,8 +108,11 @@ namespace FinalProject.Areas.AdminPanel.Controllers
                 CoverImageUrl = imageUrl,
                 CreatedAt = DateTime.Now,
                 IsPublished = model.IsPublished,
-                AuthorName = model.AuthorName,
-                AuthorSpecialty = model.AuthorSpecialty,
+                AuthorName = User.IsInRole("Doctor") ? currentDoctor!.FullName : model.AuthorName,
+                AuthorSpecialty = User.IsInRole("Doctor")
+                    ? currentDoctor!.Speciality != null ? currentDoctor.Speciality.Name : null
+                    : model.AuthorSpecialty,
+                DoctorId = User.IsInRole("Doctor") ? currentDoctor!.Id : null
             };
 
             _context.Articles.Add(article);
@@ -90,10 +121,15 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             TempData["SuccessMessage"] = "Məqalə uğurla əlavə olundu.";
             return RedirectToAction(nameof(Success));
         }
-  
+
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            if (!await CanAccessArticleAsync(id))
+            {
+                return Forbid();
+            }
+
             var article = await _context.Articles.FindAsync(id);
             if (article == null)
                 return NotFound();
@@ -120,6 +156,11 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             if (id != model.Id)
                 return NotFound();
 
+            if (!await CanAccessArticleAsync(id))
+            {
+                return Forbid();
+            }
+
             if (!ModelState.IsValid)
                 return View(model);
 
@@ -127,12 +168,35 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             if (article == null)
                 return NotFound();
 
+            Doctor? currentDoctor = null;
+
+            if (User.IsInRole("Doctor"))
+            {
+                currentDoctor = await GetCurrentDoctorAsync();
+
+                if (currentDoctor == null)
+                {
+                    return Forbid();
+                }
+            }
+
             article.Title = model.Title;
             article.Summary = model.Summary;
             article.Content = model.Content;
             article.IsPublished = model.IsPublished;
-            article.AuthorName = model.AuthorName;
-            article.AuthorSpecialty = model.AuthorSpecialty;
+
+            article.AuthorName = User.IsInRole("Doctor")
+                ? currentDoctor!.FullName
+                : model.AuthorName;
+
+            article.AuthorSpecialty = User.IsInRole("Doctor")
+                ? currentDoctor!.Speciality != null ? currentDoctor.Speciality.Name : null
+                : model.AuthorSpecialty;
+
+            if (User.IsInRole("Doctor"))
+            {
+                article.DoctorId = currentDoctor!.Id;
+            }
 
             var newSlug = GenerateSlug(model.Title);
             var slugExists = await _context.Articles.AnyAsync(x => x.Slug == newSlug && x.Id != id);
@@ -153,6 +217,11 @@ namespace FinalProject.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!await CanAccessArticleAsync(id))
+            {
+                return Forbid();
+            }
+
             var article = await _context.Articles.FindAsync(id);
             if (article == null)
                 return NotFound();
@@ -174,6 +243,11 @@ namespace FinalProject.Areas.AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ToggleStatus(int id)
         {
+            if (!await CanAccessArticleAsync(id))
+            {
+                return Forbid();
+            }
+
             var article = await _context.Articles.FindAsync(id);
 
             if (article == null)
@@ -185,6 +259,39 @@ namespace FinalProject.Areas.AdminPanel.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        private async Task<Doctor?> GetCurrentDoctorAsync()
+        {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrWhiteSpace(currentUserId))
+            {
+                return null;
+            }
+
+            return await _context.Doctors
+                .Include(x => x.Speciality)
+                .FirstOrDefaultAsync(x => x.AppUserId == currentUserId);
+        }
+
+        private async Task<bool> CanAccessArticleAsync(int articleId)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                return true;
+            }
+
+            var currentDoctor = await GetCurrentDoctorAsync();
+
+            if (currentDoctor == null)
+            {
+                return false;
+            }
+
+            return await _context.Articles
+                .AnyAsync(x => x.Id == articleId && x.DoctorId == currentDoctor.Id);
+        }
+
         private async Task<string> SaveImageAsync(IFormFile file)
         {
             var uploadsFolder = Path.Combine(_env.WebRootPath, "assets", "images", "articles");

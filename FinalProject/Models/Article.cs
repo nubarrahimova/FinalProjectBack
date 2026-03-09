@@ -26,5 +26,7 @@ namespace FinalProject.Models
         public bool IsPublished { get; set; }
         public string? AuthorName { get; set; }
         public string? AuthorSpecialty { get; set; }
+        public int? DoctorId { get; set; }
+        public Doctor? Doctor { get; set; }
     }
 }

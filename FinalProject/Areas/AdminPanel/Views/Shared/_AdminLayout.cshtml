@@ -1,33 +1,104 @@
 ﻿<!DOCTYPE html>
 <html lang="az">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] - Admin Panel</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="~/assets/admin/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="~/assets/admin/vendors/base/vendor.bundle.base.css">
     <link rel="stylesheet" href="~/assets/admin/css/style.css">
     <link rel="shortcut icon" href="~/assets/admin/images/favicon.png">
+
+    <style>
+        .admin-user-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+            padding: 10px 12px;
+            margin-right: 12px;
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            min-width: 220px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+
+        .admin-user-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: flex-end;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .admin-user-email {
+            max-width: 170px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .admin-user-actions {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .admin-btn-site {
+            border-radius: 8px;
+            padding: 6px 14px;
+            border: 1px solid #dcdcdc;
+            background: #fff;
+            color: #4B49AC;
+            font-weight: 500;
+        }
+
+            .admin-btn-site:hover {
+                background: #f8f9fa;
+                color: #4B49AC;
+            }
+
+        .admin-btn-logout {
+            border-radius: 8px;
+            padding: 6px 14px;
+            background: #1e3a8a;
+            border: 1px solid #1e3a8a;
+            color: #fff;
+            font-weight: 500;
+        }
+
+            .admin-btn-logout:hover {
+                background: #163172;
+                border-color: #163172;
+                color: #fff;
+            }
+
+        .navbar-menu-wrapper {
+            min-height: 70px;
+        }
+    </style>
 </head>
 
 <body>
-
     <div class="container-scroller">
 
-        <!-- NAVBAR -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 
             <div class="navbar-brand-wrapper d-flex justify-content-center">
                 <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
 
-                    <a class="navbar-brand brand-logo" href="/AdminPanel/Appointments">
+                    <a class="navbar-brand brand-logo" href="/admin/appointments">
                         <img src="~/assets/admin/images/logo.svg" alt="logo" />
                     </a>
 
-                    <a class="navbar-brand brand-logo-mini" href="/AdminPanel/Appointments">
+                    <a class="navbar-brand brand-logo-mini" href="/admin/appointments">
                         <img src="~/assets/admin/images/logo-mini.svg" alt="logo" />
                     </a>
 
@@ -38,78 +109,47 @@
                 </div>
             </div>
 
-            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+            <div style="display:flex; align-items:center; gap:12px; margin-right:15px;">
 
-                <ul class="navbar-nav mr-lg-4 w-100">
-                    <li class="nav-item nav-search d-none d-lg-block w-100">
+                <div style="display:flex; align-items:center; gap:6px; font-weight:500;">
+                    <i class="mdi mdi-account-circle" style="font-size:20px;"></i>
+                    <span>@(User.Identity?.Name ?? "Admin")</span>
+                </div>
 
-                        <div class="input-group">
+                <a href="/" class="btn btn-light btn-sm"
+                   style="border-radius:6px; padding:5px 12px; border:1px solid #dcdcdc;">
+                    <i class="mdi mdi-web"></i>
+                    Sayt
+                </a>
 
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="mdi mdi-magnify"></i>
-                                </span>
-                            </div>
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" style="margin:0;">
+                    @Html.AntiForgeryToken()
 
-                            <input type="text" class="form-control" placeholder="Axtar">
-
-                        </div>
-
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav navbar-nav-right">
-
-                    <li class="nav-item nav-profile dropdown">
-
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/assets/admin/images/faces/face5.jpg" alt="profile" />
-                            <span class="nav-profile-name">
-                                @(User.Identity?.IsAuthenticated == true ? User.Identity.Name : "Admin")
-                            </span>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown">
-
-                            <a class="dropdown-item" href="/">
-                                <i class="mdi mdi-web text-primary"></i>
-                                Sayta keç
-                            </a>
-
-                            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" style="margin:0;">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="dropdown-item border-0 bg-transparent text-start w-100">
-                                    <i class="mdi mdi-logout text-danger"></i>
-                                    Çıxış et
-                                </button>
-                            </form>
-
-                        </div>
-
-                    </li>
-
-                </ul>
+                    <button type="submit"
+                            class="btn btn-primary btn-sm"
+                            style="border-radius:6px; padding:5px 12px;">
+                        <i class="mdi mdi-logout"></i>
+                        Çıxış
+                    </button>
+                </form>
 
             </div>
-
         </nav>
 
         <div class="container-fluid page-body-wrapper">
 
-            <!-- SIDEBAR -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
-
                 <ul class="nav">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/AdminPanel/Appointments">
+                        <a class="nav-link" href="/admin/appointments">
                             <i class="mdi mdi-calendar-check menu-icon"></i>
                             <span class="menu-title">Randevular</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/AdminPanel/Articles">
+                        <a class="nav-link" href="/admin/articles">
                             <i class="mdi mdi-file-document menu-icon"></i>
                             <span class="menu-title">Məqalələr</span>
                         </a>
@@ -123,10 +163,8 @@
                     </li>
 
                 </ul>
-
             </nav>
 
-            <!-- CONTENT -->
             <div class="main-panel">
                 <div class="content-wrapper">
                     @RenderBody()
@@ -134,16 +172,13 @@
             </div>
 
         </div>
-
     </div>
 
-    <!-- JS -->
     <script src="~/assets/admin/vendors/base/vendor.bundle.base.js"></script>
     <script src="~/assets/admin/js/off-canvas.js"></script>
     <script src="~/assets/admin/js/hoverable-collapse.js"></script>
     <script src="~/assets/admin/js/template.js"></script>
 
     @RenderSection("Scripts", required: false)
-
 </body>
 </html>

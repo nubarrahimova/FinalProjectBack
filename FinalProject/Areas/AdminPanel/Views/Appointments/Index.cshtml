@@ -96,10 +96,15 @@
                                             <button type="submit" class="btn btn-sm btn-danger">Reject</button>
                                         </form>
 
-                                        <form action="/AdminPanel/Appointments/Delete/@item.Id" method="post" style="display:inline-block; margin-left:6px;">
-                                            @Html.AntiForgeryToken()
-                                            <button type="submit" class="btn btn-sm btn-dark" onclick="return confirm('Silmək istədiyinizə əminsiniz?')">Delete</button>
-                                        </form>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <form action="/AdminPanel/Appointments/Delete/@item.Id" method="post" style="display:inline-block; margin-left:6px;">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-dark" onclick="return confirm('Silmek istediyinize eminsiniz?')">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        }
                                     </td>
                                 </tr>
                             }
