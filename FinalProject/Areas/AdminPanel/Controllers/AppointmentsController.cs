@@ -76,6 +76,9 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             appointment.Status = "Approved";
             await _context.SaveChangesAsync();
 
+            TempData["ToastMessage"] = "Randevu uğurla təsdiqləndi.";
+            TempData["ToastType"] = "success";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -97,6 +100,9 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             appointment.Status = "Rejected";
             await _context.SaveChangesAsync();
 
+            TempData["ToastMessage"] = "Randevu rədd edildi.";
+            TempData["ToastType"] = "warning";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -117,6 +123,9 @@ namespace FinalProject.Areas.AdminPanel.Controllers
 
             _context.Appointments.Remove(appointment);
             await _context.SaveChangesAsync();
+
+            TempData["ToastMessage"] = "Randevu silindi.";
+            TempData["ToastType"] = "info";
 
             return RedirectToAction(nameof(Index));
         }

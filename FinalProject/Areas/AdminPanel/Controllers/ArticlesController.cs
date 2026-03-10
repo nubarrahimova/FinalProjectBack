@@ -118,8 +118,9 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Məqalə uğurla əlavə olundu.";
-            return RedirectToAction(nameof(Success));
+            TempData["ToastMessage"] = "Məqalə uğurla əlavə olundu.";
+            TempData["ToastType"] = "success";
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -209,8 +210,9 @@ namespace FinalProject.Areas.AdminPanel.Controllers
 
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Məqalə uğurla yeniləndi.";
-            return RedirectToAction(nameof(Success));
+            TempData["ToastMessage"] = "Məqalə uğurla yeniləndi.";
+            TempData["ToastType"] = "success";
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -229,15 +231,16 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             _context.Articles.Remove(article);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Məqalə uğurla silindi.";
-            return RedirectToAction(nameof(Success));
+            TempData["ToastMessage"] = "Məqalə uğurla silindi.";
+            TempData["ToastType"] = "info";
+            return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public IActionResult Success()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult Success()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -256,6 +259,11 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             article.IsPublished = !article.IsPublished;
 
             await _context.SaveChangesAsync();
+            TempData["ToastMessage"] = article.IsPublished
+            ? "Məqalə yayımlandı."
+            : "Məqalə draft vəziyyətinə keçirildi.";
+
+            TempData["ToastType"] = "success";
 
             return RedirectToAction(nameof(Index));
         }

@@ -1,12 +1,4 @@
-﻿@{
-    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    var currentCulture = requestCulture?.RequestCulture.UICulture.Name ?? "az";
-    var cultures = LocOptions.Value.SupportedUICultures?.ToList() ?? new List<System.Globalization.CultureInfo>();
-    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}{Context.Request.QueryString}";
-}
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="az">
 <head>
     <meta charset="utf-8" />
@@ -23,18 +15,9 @@
 
             <div class="header-center">
                 <div class="lang-switch" role="group" aria-label="Language">
- 
-
-                    <a href="/Home/ChangeLanguage?culture=az" class="lng @(CultureInfo.CurrentCulture.Name == "az" ? "active-lang" : "") ">
-                        AZ
-                    </a>
-                    <a href="/Home/ChangeLanguage?culture=en" class="lng @(CultureInfo.CurrentCulture.Name == "en" ? "active-lang" : "")">
-                        EN
-                    </a>
-                    <a href="/Home/ChangeLanguage?culture=ru" class="lng @(CultureInfo.CurrentCulture.Name == "ru" ? "active-lang" : "")">
-                        RU
-                    </a>
-
+                    <a class="lng active" href="?lang=az" aria-current="true">AZ</a>
+                    <a class="lng" href="?lang=ru">RU</a>
+                    <a class="lng" href="?lang=en">EN</a>
                 </div>
                 <a class="btn primary nav-cta" href="/doctors">Qəbula yazıl</a>
             </div>
