@@ -1,6 +1,6 @@
 ﻿namespace FinalProject.Resources
 {
-    public class SharedResources
+    public class SharedResource
     {
     }
 }

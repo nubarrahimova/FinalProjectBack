@@ -1,8 +1,10 @@
 ﻿using FinalProject.Data;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace FinalProject;
 
@@ -10,7 +12,27 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
+
+        var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("az"),
+    new CultureInfo("ru")
+
+};
+        var localizationOptions = new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new RequestCulture("az"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures
+        };
+
         var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddLocalization(options => options.ResourcesPath = "");
+        builder.Services.AddHttpClient();
+        builder.Services.AddControllersWithViews()
+            .AddViewLocalization()
+            .AddDataAnnotationsLocalization();
 
         builder.Services.AddControllersWithViews(options =>
         {
@@ -38,11 +60,31 @@ public class Program
         {
             options.LoginPath = "/Account/Login";
             options.AccessDeniedPath = "/Account/AccessDenied";
+
+            options.Events.OnRedirectToLogin = context =>
+            {
+                context.Response.Redirect("/Account/Login");
+                return Task.CompletedTask;
+            };
+
+            options.Events.OnRedirectToAccessDenied = context =>
+            {
+                context.Response.Redirect("/Account/Login");
+                return Task.CompletedTask;
+            };
+
             options.Cookie.Name = "FinalProjectAuth";
         });
 
         var app = builder.Build();
-
+        localizationOptions.RequestCultureProviders = new IRequestCultureProvider[]
+{
+    new CookieRequestCultureProvider
+    {
+        CookieName = CookieRequestCultureProvider.DefaultCookieName
+    },
+    new AcceptLanguageHeaderRequestCultureProvider()
+};
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Home/Error");
@@ -51,6 +93,7 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        app.UseRequestLocalization(localizationOptions);
         app.UseRouting();
 
         app.UseAuthentication();

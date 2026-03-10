@@ -100,25 +100,17 @@
 	</resheader>
 
 
-
   <data name="Appointment" xml:space="preserve">
     <value>Book Appointment</value>
   </data>
   <data name="Cabinet" xml:space="preserve">
     <value>Dashboard</value>
   </data>
-
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
-  </data>
-
-
-
- <data name="SiteName" xml:space="preserve">
-    <value>MedZapis</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language selection</value>
@@ -156,13 +148,12 @@
   <data name="DoctorAdminLogin" xml:space="preserve">
     <value>Doctor/Admin Login</value>
   </data>
-
-
-
- <data name="PageTitle" xml:space="preserve">
+  <data name="PageTitle" xml:space="preserve">
     <value>Home Page</value>
   </data>
-
+  <data name="SiteName" xml:space="preserve">
+    <value>MedZapis</value>
+  </data>
   <data name="HeroTitle" xml:space="preserve">
     <value>Online doctor appointment — simple, secure, official</value>
   </data>
@@ -172,27 +163,11 @@
   <data name="TestModeMessage1" xml:space="preserve">
     <value>Currently MedZapis is in public test mode. We are gradually adding features. If you see any issues, please write to</value>
   </data>
-  <data name="TestModeMessage2" xml:space="preserve">
-    <value></value>
-  </data>
   <data name="Thanks" xml:space="preserve">
     <value>Thank you!</value>
   </data>
-  <data name="FindDoctor" xml:space="preserve">
-    <value>Find a Doctor</value>
-  </data>
-  <data name="PricingForDoctors" xml:space="preserve">
-    <value>Pricing for Doctors</value>
-  </data>
-  <data name="Feature1" xml:space="preserve">
-    <value>Clear terms: short</value>
-  </data>
-  <data name="Feature2" xml:space="preserve">
-    <value>Reminders and calendar add (ICS)</value>
-  </data>
-  <data name="Feature3" xml:space="preserve">
-    <value>Data is encrypted and not shared with third parties without consent</value>
-  </data>
+
+
   <data name="PhonePreview" xml:space="preserve">
     <value>MedZapis preview</value>
   </data>
@@ -331,4 +306,97 @@
   <data name="AskAdmin" xml:space="preserve">
     <value>Ask admin</value>
   </data>
+
+  	<data name="TestModeMessage2" xml:space="preserve">
+    <value>Write to your address.</value>
+</data>
+
+	<data name="PolicyLink" xml:space="preserve">
+    <value>Privacy Policy and Disclaimer</value>	
+</data>
+
+	<data name="FindDoctor" xml:space="preserve">
+    <value>Find doctor</value>
+</data>
+
+	<data name="PricingForDoctors" xml:space="preserve">
+    <value>Pricing for doctors</value>
+</data>
+
+	<data name="Close" xml:space="preserve">
+    <value>Close</value>
+</data>
+
+	<data name="PricingIntro" xml:space="preserve">
+    <value>There is only one plan for MedZapis: all features for just 1 AZN per month. You can use the service for free until the end of the year and try everything comfortably.</value>
+</data>
+
+	<data name="BasicPlan" xml:space="preserve">
+    <value>BASIC</value>
+</data>
+
+	<data name="PlanPrice" xml:space="preserve">
+    <value>1 AZN</value>
+</data>
+
+	<data name="Month" xml:space="preserve">
+    <value>month</value>
+</data>
+
+	<data name="ActivePlan" xml:space="preserve">
+    <value>Active Plan</value>
+</data>
+
+	<!-- Pricing features -->
+	<data name="Feature1" xml:space="preserve">
+    <value>Personal page for the doctor (unique URL) + QR code</value>
+</data>
+
+	<data name="Feature2" xml:space="preserve">
+    <value>Online registration</value>
+</data>
+
+	<data name="Feature3" xml:space="preserve">
+    <value>Doctor's cabinet (PWA): add to home screen, offline view of recent data</value>
+</data>
+
+	<data name="Feature4" xml:space="preserve">
+    <value>List of requests: date/time, status, comment</value>
+</data>
+
+	<data name="Feature5" xml:space="preserve">
+    <value>Subscribe to calendar (ICS/Webcal)</value>
+</data>
+
+	<data name="Feature6" xml:space="preserve">
+    <value>Contact admin: "Incoming" and "Write to admin"</value>
+</data>
+
+	<data name="Feature7" xml:space="preserve">
+    <value>Patients (Micro-CRM): automatic collection from records, merging duplicates, search/filter, first/last visit, visit counter	</value>
+</data>
+
+	<data name="Feature8" xml:space="preserve">
+    <value>Analytics: registrations and unique patients; Line/Bar chart; 7/30/90 day range</value>
+</data>
+
+	<data name="Feature9" xml:space="preserve">
+    <value>Languages in the cabinet: RU / AZ / EN</value>
+</data>
+
+	<data name="Feature10" xml:space="preserve">
+    <value>Email notifications for new posts — included</value>
+</data>
+
+	<data name="Feature11" xml:space="preserve">
+    <value>CSV export (patients/requests)</value>
+</data>
+
+	<data name="Feature12" xml:space="preserve">
+    <value>Notes, tags, and statuses for each patient (in development)</value>
+</data>
+
+	<data name="Feature13" xml:space="preserve">
+    <value>24/7 priority support</value>
+</data>
 </root>

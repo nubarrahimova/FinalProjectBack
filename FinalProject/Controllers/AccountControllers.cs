@@ -11,19 +11,35 @@ namespace FinalProject.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
 
-        public AccountController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        public AccountController(
+            SignInManager<AppUser> signInManager,
+            UserManager<AppUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("/admin/Account/Login")]
+        public IActionResult AdminLoginRedirect()
+        {
+            return Redirect("/Account/Login");
+        }
+
+        [AllowAnonymous]
+        [HttpGet("/admin/Account/AccessDenied")]
+        public IActionResult AdminAccessDeniedRedirect()
+        {
+            return Redirect("/Account/AccessDenied");
+        }
+
+        [AllowAnonymous]
+        [HttpGet("/Account/Login")]
         public IActionResult Login(string? returnUrl = null)
         {
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Dashboard", new { area = "AdminPanel" });
+                return RedirectToAction("Index", "Appointments", new { area = "AdminPanel" });
             }
 
             ViewBag.ReturnUrl = returnUrl;
@@ -31,7 +47,7 @@ namespace FinalProject.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("/Account/Login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM model, string? returnUrl = null)
         {
@@ -62,7 +78,10 @@ namespace FinalProject.Controllers
                 return View(model);
             }
 
-            if (await _userManager.IsInRoleAsync(user, "Admin") || await _userManager.IsInRoleAsync(user, "Doctor"))
+            var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+            var isDoctor = await _userManager.IsInRoleAsync(user, "Doctor");
+
+            if (isAdmin || isDoctor)
             {
                 if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
@@ -76,19 +95,21 @@ namespace FinalProject.Controllers
             ModelState.AddModelError(string.Empty, "Bu panelə giriş icazəniz yoxdur.");
             return View(model);
         }
+
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("/Account/AccessDenied")]
         public IActionResult AccessDenied()
         {
             return View();
         }
+
         [Authorize]
-        [HttpPost]
+        [HttpPost("/Account/Logout")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account", new { area = "" });
+            return Redirect("/Account/Login");
         }
     }
 }

@@ -1,126 +1,133 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-
-
- 
-  
-
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
   <data name="Appointment" xml:space="preserve">
     <value>Записаться на прием</value>
   </data>
   <data name="Cabinet" xml:space="preserve">
     <value>Кабинет</value>
   </data>
-
   <data name="Welcome" xml:space="preserve">
     <value>Добро пожаловать</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Выход</value>
-  </data>
-
-
-
- <data name="SiteName" xml:space="preserve">
-    <value>МедЗапись</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Выбор языка</value>
@@ -158,12 +165,12 @@
   <data name="DoctorAdminLogin" xml:space="preserve">
     <value>Вход для врачей/админов</value>
   </data>
-
-
- <data name="PageTitle" xml:space="preserve">
+  <data name="PageTitle" xml:space="preserve">
     <value>Главная страница</value>
   </data>
-
+  <data name="SiteName" xml:space="preserve">
+    <value>МедЗапись</value>
+  </data>
   <data name="HeroTitle" xml:space="preserve">
     <value>Онлайн запись к врачу — просто, безопасно, официально</value>
   </data>
@@ -172,9 +179,6 @@
   </data>
   <data name="TestModeMessage1" xml:space="preserve">
     <value>В настоящее время MedZapis находится в режиме публичного тестирования. Мы постепенно добавляем функции. Если вы заметили какие-либо неполадки, пожалуйста, напишите на</value>
-  </data>
-  <data name="TestModeMessage2" xml:space="preserve">
-    <value></value>
   </data>
   <data name="Thanks" xml:space="preserve">
     <value>Спасибо!</value>
@@ -281,7 +285,9 @@
   <data name="AllArticles" xml:space="preserve">
     <value>Все статьи</value>
   </data>
-
+  <data name="ContactsTitle" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
   <data name="ContactUs" xml:space="preserve">
     <value>Свяжитесь с нами</value>
   </data>
@@ -330,4 +336,99 @@
   <data name="AskAdmin" xml:space="preserve">
     <value>Спросить админа</value>
   </data>
+
+  	<data name="TestModeMessage2" xml:space="preserve">
+    <value>Напишите на ваш адрес.</value>
+</data>
+
+	<data name="PolicyLink" xml:space="preserve">
+    <value>Политика конфиденциальности и отказ от ответственности</value>	
+</data>
+
+	<data name="FindDoctor" xml:space="preserve">
+    <value>Найти врача</value>
+</data>
+
+	<data name="PricingForDoctors" xml:space="preserve">
+    <value>Цены для врачей</value>
+</data>
+
+	<data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+</data>
+
+	<data name="PricingIntro" xml:space="preserve">
+    <value>Есть только один план для MedZapis: все функции всего за 1 AZN в месяц. Вы можете использовать сервис бесплатно до конца года и попробовать все с комфортом.</value>
+</data>
+
+	<data name="BasicPlan" xml:space="preserve">
+    <value>BASIC</value>
+</data>
+
+	<data name="PlanPrice" xml:space="preserve">
+    <value>1 AZN</value>
+</data>
+
+	<data name="Month" xml:space="preserve">
+    <value>месяц</value>
+</data>
+
+	<data name="ActivePlan" xml:space="preserve">
+    <value>Активный план</value>
+</data>
+
+	<!-- Pricing features -->
+	<data name="Feature1" xml:space="preserve">
+    <value>Личная страница для врача (уникальный URL) + QR код</value>
+</data>
+
+	<data name="Feature2" xml:space="preserve">
+    <value>Онлайн регистрация</value>
+</data>
+
+	<data name="Feature3" xml:space="preserve">
+    <value>Кабинет врача (PWA): добавление на главный экран, оффлайн просмотр последних данных</value>
+</data>
+
+	<data name="Feature4" xml:space="preserve">
+    <value>Список запросов: дата/время, статус, комментарий</value>
+</data>
+
+	<data name="Feature5" xml:space="preserve">
+    <value>Подписка на календарь (ICS/Webcal)</value>
+</data>
+
+	<data name="Feature6" xml:space="preserve">
+    <value>Связь с администратором: "Входящие" и "Написать администратору"</value>
+</data>
+
+	<data name="Feature7" xml:space="preserve">
+    <value>Пациенты (Micro-CRM): автоматический сбор из записей, объединение дубликатов, поиск/фильтр, первый/последний визит, счетчик визитов</value>
+</data>
+
+	<data name="Feature8" xml:space="preserve">
+    <value>Аналитика: регистрации и уникальные пациенты; Линейная/Столбчатая диаграмма; диапазон 7/30/90 дней</value>
+</data>
+
+	<data name="Feature9" xml:space="preserve">
+    <value>Языки в кабинете: RU / AZ / EN</value>
+</data>
+
+	<data name="Feature10" xml:space="preserve">
+    <value>Email уведомления о новых публикациях — включено</value>
+</data>
+
+	<data name="Feature11" xml:space="preserve">
+    <value>CSV экспорт (пациенты/запросы)</value>
+</data>
+
+	<data name="Feature12" xml:space="preserve">
+    <value>Заметки, теги и статусы для каждого пациента (в разработке)</value>
+</data>
+
+	<data name="Feature13" xml:space="preserve">
+    <value>Круглосуточная приоритетная поддержка</value>
+</data>
+
+
 </root>

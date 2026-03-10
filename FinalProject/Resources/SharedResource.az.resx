@@ -99,23 +99,18 @@
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
 
-
   <data name="Appointment" xml:space="preserve">
     <value>Qəbula yazıl</value>
   </data>
   <data name="Cabinet" xml:space="preserve">
     <value>Kabinet</value>
   </data>
-
   <data name="Welcome" xml:space="preserve">
     <value>Xoş gəlmisiniz</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Çıxış</value>
   </data>
-
-
-
   <data name="Language" xml:space="preserve">
     <value>Dil seçimi</value>
   </data>
@@ -152,11 +147,7 @@
   <data name="DoctorAdminLogin" xml:space="preserve">
     <value>Həkim/Admin girişi</value>
   </data>
-
-
-
-
-<data name="PageTitle" xml:space="preserve">
+  <data name="PageTitle" xml:space="preserve">
     <value>Ana səhifə</value>
   </data>
   <data name="SiteName" xml:space="preserve">
@@ -171,27 +162,14 @@
   <data name="TestModeMessage1" xml:space="preserve">
     <value>Hazırda MedZapis ictimai test rejimindədir. Funksiyaları addım-addım artırırıq. Hər hansı nasazlıq görsəniz, zəhmət olmasa</value>
   </data>
-  <data name="TestModeMessage2" xml:space="preserve">
-    <value>ünvanına yazın.</value>
-  </data>
   <data name="Thanks" xml:space="preserve">
     <value>Təşəkkür edirik!</value>
   </data>
   <data name="FindDoctor" xml:space="preserve">
     <value>Həkim tap</value>
   </data>
-  <data name="PricingForDoctors" xml:space="preserve">
-    <value>Həkimlər üçün tariflər</value>
-  </data>
-  <data name="Feature1" xml:space="preserve">
-    <value>Aydın şərtlər: bir səhifədə qısa</value>
-  </data>
-  <data name="Feature2" xml:space="preserve">
-    <value>Xatırlatmalar və təqvimə əlavə (ICS)</value>
-  </data>
-  <data name="Feature3" xml:space="preserve">
-    <value>Məlumatlar şifrələnir və razılıq olmadan üçüncü tərəflərlə paylaşılmır</value>
-  </data>
+
+
   <data name="PhonePreview" xml:space="preserve">
     <value>MedZapis ön izləmə</value>
   </data>
@@ -330,4 +308,97 @@
   <data name="AskAdmin" xml:space="preserve">
     <value>Adminə sual verin</value>
   </data>
+
+
+	<data name="TestModeMessage2" xml:space="preserve">
+    <value>ünvanına yazın.</value>
+</data>
+
+	<data name="PolicyLink" xml:space="preserve">
+    <value>siyasət və diskleymer</value>
+</data>
+
+
+
+	<data name="PricingForDoctors" xml:space="preserve">
+    <value>Həkimlər üçün tariflər</value>
+</data>
+
+	<data name="Close" xml:space="preserve">
+    <value>Bağla</value>
+</data>
+
+	<data name="PricingIntro" xml:space="preserve">
+    <value>MedZapis üçün yalnız bir tarif var: bütün imkanlar ayda cəmi 1 AZN. İlin sonuna qədər xidmətdən pulsuz istifadə edib hər şeyi rahat sınaqdan keçirə bilərsiniz.</value>
+</data>
+
+	<data name="BasicPlan" xml:space="preserve">
+    <value>BASIC</value>
+</data>
+
+	<data name="PlanPrice" xml:space="preserve">
+    <value>1 AZN</value>
+</data>
+
+	<data name="Month" xml:space="preserve">
+    <value>ay</value>
+</data>
+
+	<data name="ActivePlan" xml:space="preserve">
+    <value>Aktiv plan</value>
+</data>
+
+	<!-- Pricing features -->
+	<data name="Feature1" xml:space="preserve">
+    <value>Həkim üçün şəxsi səhifə (unikal URL) + QR-kod</value>
+</data>
+
+	<data name="Feature2" xml:space="preserve">
+    <value>Onlayn qeydiyyat</value>
+</data>
+
+	<data name="Feature3" xml:space="preserve">
+    <value>Həkim kabineti (PWA): əsas ekrana əlavə etmə, son məlumatların oflayn görünüşü</value>
+</data>
+
+	<data name="Feature4" xml:space="preserve">
+    <value>Müraciətlər siyahısı: tarix/vaxt, status, şərh</value>
+</data>
+
+	<data name="Feature5" xml:space="preserve">
+    <value>Təqvimə abunə (ICS/Webcal)</value>
+</data>
+
+	<data name="Feature6" xml:space="preserve">
+    <value>Adminlə əlaqə: “Gələnlər” və “Adminə yaz”</value>
+</data>
+
+	<data name="Feature7" xml:space="preserve">
+    <value>Pasiyentlər (Micro-CRM): yazılardan avtomatik toplama, təkrarlananların birləşdirilməsi, axtarış/filtr, ilk/son ziyarət, ziyarətlərin sayğacı</value>
+</data>
+
+	<data name="Feature8" xml:space="preserve">
+    <value>Analitika: qeydiyyatlar və unikal pasiyentlər; Line/Bar qrafik; 7/30/90 gün diapazonu</value>
+</data>
+
+	<data name="Feature9" xml:space="preserve">
+    <value>Kabinetdə RU / AZ / EN dilləri</value>
+</data>
+
+	<data name="Feature10" xml:space="preserve">
+    <value>Yeni yazılar barədə həkimə e-mail — daxildir</value>
+</data>
+
+	<data name="Feature11" xml:space="preserve">
+    <value>CSV ixracı (pasiyentlər/müraciətlər)</value>
+</data>
+
+	<data name="Feature12" xml:space="preserve">
+    <value>Pasiyent üzrə qeydlər, teqlər və statuslar (inkişafdadır)</value>
+</data>
+
+	<data name="Feature13" xml:space="preserve">
+    <value>24/7 prioritet dəstək</value>
+</data>
+
 </root>

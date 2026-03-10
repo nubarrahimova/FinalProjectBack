@@ -6,3 +6,9 @@
 @using FinalProject.Resources
 @using System.Globalization
 
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@using FinalProject.Resources
+@using System.Globalization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
+@using Microsoft.AspNetCore.Mvc.Localization

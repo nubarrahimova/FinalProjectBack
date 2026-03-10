@@ -1,42 +1,41 @@
 ﻿<!DOCTYPE html>
-<html lang="az">
+<html lang="@(System.Threading.Thread.CurrentThread.CurrentCulture.Name)">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>@ViewData["Title"] - MedZapis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @Localizer["SiteName"]</title>
 
     <link rel="stylesheet" href="~/assets/css/style.css" asp-append-version="true" />
     @RenderSection("Styles", required: false)
-
 </head>
 <body>
     <header class="header">
         <div class="container-header">
-            <a class="logo" href="/">MedZapis</a>
+            <a class="logo" href="/" aria-label="@Localizer["SiteName"]">@Localizer["SiteName"]</a>
 
             <div class="header-center">
-                <div class="lang-switch" role="group" aria-label="Language">
-                    <a class="lng active" href="?lang=az" aria-current="true">AZ</a>
-                    <a class="lng" href="?lang=ru">RU</a>
-                    <a class="lng" href="?lang=en">EN</a>
+                <div class="lang-switch" role="group" aria-label="@Localizer["LanguageSelection"]">
+                    <a href="/Home/ChangeLanguage?culture=az" class="lng" hreflang="az" lang="az">@Localizer["AZ"]</a>
+                    <a href="/Home/ChangeLanguage?culture=ru" class="lng" hreflang="ru" lang="ru">@Localizer["RU"]</a>
+                    <a href="/Home/ChangeLanguage?culture=en" class="lng" hreflang="en" lang="en">@Localizer["EN"]</a>
                 </div>
 
-                <a class="btn primary nav-cta" href="/doctors">Qəbula yazıl</a>
+                <a class="btn primary nav-cta" href="/doctors" aria-label="@Localizer["BookAppointment"]">@Localizer["BookAppointment"]</a>
             </div>
 
-            <nav class="nav" aria-label="Main navigation">
-                <a href="/#articles-home">Məqalələr</a>
-                <a href="/#about">Haqqında</a>
-                <a href="/#contacts">Əlaqə</a>
-                <a href="/#policy">Siyasət</a>
+            <nav class="nav" aria-label="@Localizer["MainNavigation"]">
+                <a href="/#articles-home">@Localizer["Articles"]</a>
+                <a href="/#about">@Localizer["About"]</a>
+                <a href="/#contacts">@Localizer["Contacts"]</a>
+                <a href="/#policy">@Localizer["Policy"]</a>
 
                 @if (User.Identity?.IsAuthenticated == true)
                 {
-                    <a href="/AdminPanel/Appointments" class="btn-primary">Kabinet</a>
+                    <a href="/AdminPanel/Appointments" class="btn-primary">@Localizer["Dashboard"]</a>
                 }
                 else
                 {
-                    <a href="/Account/Login" class="btn-outline-primary">Həkim/Admin girişi</a>
+                    <a href="/Account/Login" class="btn-outline-primary">@Localizer["DoctorAdminLogin"]</a>
                 }
             </nav>
         </div>
@@ -48,16 +47,15 @@
 
     <footer class="site-footer-custom">
         <div class="footer-inner">
-            <div>© 2026 MedZapis · Bütün hüquqlar qorunur</div>
-            <div>Sayt daxili resurslarla hazırlanıb — <a href="/">DevCraft Digital</a>.</div>
+            <div>© 2026 @Localizer["SiteName"] · @Localizer["AllRightsReserved"]</div>
+            <div>@Localizer["SiteCredit"] <a href="/">DevCraft Digital</a>.</div>
             <div>
-                MedZapis onlayn qeydiyyat üçün pulsuz platformadır. Tibbi xidmətin keyfiyyəti və məzmununa görə
-                məsuliyyət müvafiq həkim və ya klinikanın üzərindədir.
+                @Localizer["Disclaimer"]
             </div>
 
             <div class="footer-links">
-                <a href="/#policy">Diskleymer</a>
-                <a href="/#policy">Məxfilik Siyasəti</a>
+                <a href="/#policy">@Localizer["Disclaimer"]</a>
+                <a href="/#policy">@Localizer["PrivacyPolicy"]</a>
             </div>
         </div>
     </footer>
