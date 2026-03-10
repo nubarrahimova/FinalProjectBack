@@ -23,7 +23,7 @@ namespace FinalProject.Controllers
         {
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Articles", new { area = "AdminPanel" });
+                return RedirectToAction("Index", "Dashboard", new { area = "AdminPanel" });
             }
 
             ViewBag.ReturnUrl = returnUrl;

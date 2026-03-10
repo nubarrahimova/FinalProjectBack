@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <h3 style="font-weight:700; color:#2c3e50;">Dashboard</h3>
+        <p style="color:#6c757d; margin-bottom:0;">
+            Admin panelin ümumi statistikası
+        </p>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <a href="/admin/appointments" class="dashboard-card dashboard-card-blue">
+            <div>
+                <div class="dashboard-card-title">Ümumi randevu</div>
+                <div class="dashboard-card-value">@ViewBag.TotalAppointments</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-calendar-text"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <div class="dashboard-card dashboard-card-yellow">
+            <div>
+                <div class="dashboard-card-title">Yeni randevu</div>
+                <div class="dashboard-card-value">@ViewBag.NewAppointments</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-timer-sand"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <div class="dashboard-card dashboard-card-green">
+            <div>
+                <div class="dashboard-card-title">Təsdiqlənən</div>
+                <div class="dashboard-card-value">@ViewBag.ApprovedAppointments</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-check-circle-outline"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <div class="dashboard-card dashboard-card-red">
+            <div>
+                <div class="dashboard-card-title">Rədd edilən</div>
+                <div class="dashboard-card-value">@ViewBag.RejectedAppointments</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-close-circle-outline"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <a href="/admin/articles" class="dashboard-card dashboard-card-purple">
+            <div>
+                <div class="dashboard-card-title">Məqalə sayı</div>
+                <div class="dashboard-card-value">@ViewBag.TotalArticles</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-file-document-outline"></i>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 col-xl-4 mb-4">
+        <a href="/admin/doctors" class="dashboard-card dashboard-card-dark">
+            <div>
+                <div class="dashboard-card-title">Həkim sayı</div>
+                <div class="dashboard-card-value">@ViewBag.TotalDoctors</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-doctor"></i>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<style>
+    .dashboard-card {
+        border-radius: 16px;
+        padding: 22px 24px;
+        min-height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+        box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+    }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+        }
+
+    .dashboard-card-title {
+        font-size: 15px;
+        font-weight: 600;
+        opacity: 0.95;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-card-value {
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .dashboard-card-icon i {
+        font-size: 42px;
+        opacity: 0.9;
+    }
+
+    .dashboard-card-blue {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+
+    .dashboard-card-yellow {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+
+    .dashboard-card-green {
+        background: linear-gradient(135deg, #22c55e, #15803d);
+    }
+
+    .dashboard-card-red {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    .dashboard-card-purple {
+        background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    }
+
+    .dashboard-card-dark {
+        background: linear-gradient(135deg, #334155, #0f172a);
+        .dashboard-card
+
+       
+    }
+</style>
