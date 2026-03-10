@@ -1,44 +1,241 @@
 ﻿@model FinalProject.ViewModels.Account.LoginVM
 
 @{
-    ViewData["Title"] = "Admin Login";
+    ViewData["Title"] = "Panelə giriş";
 }
 
-<div class="container" style="max-width: 450px; margin-top: 80px;">
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-4">
-            <h2 class="mb-4 text-center">Panelə Giriş</h2>
+<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 
-            <form asp-area="" asp-controller="Account" asp-action="Login" method="post">
-                @Html.AntiForgeryToken()
+<div class="login-page-wrapper">
+    <div class="login-card">
 
-                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+        <h2 class="login-title">LOGIN</h2>
 
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <form asp-action="Login" asp-controller="Account" method="post" class="login-form">
+            @Html.AntiForgeryToken()
 
-                <div class="mb-3">
-                    <label asp-for="Email" class="form-label">Email</label>
-                    <input asp-for="Email" class="form-control" placeholder="admin@medzapis.com" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
+            <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
-                <div class="mb-3">
-                    <label asp-for="Password" class="form-label">Şifrə</label>
-                    <input asp-for="Password" class="form-control" placeholder="Şifrənizi daxil edin" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
+            <div asp-validation-summary="ModelOnly" class="login-validation"></div>
 
-                <div class="form-check mb-3">
-                    <input asp-for="RememberMe" class="form-check-input" />
-                    <label asp-for="RememberMe" class="form-check-label">Məni xatırla</label>
-                </div>
+            <div class="input-group-neu">
+                <i class='bx bx-user'></i>
+                <input asp-for="Email" type="email" placeholder="Email" />
+            </div>
+            <span asp-validation-for="Email" class="field-validation"></span>
 
-                <button type="submit" class="btn btn-primary w-100">Daxil ol</button>
-            </form>
-        </div>
+            <div class="input-group-neu">
+                <i class='bx bx-lock-alt'></i>
+                <input asp-for="Password" type="password" placeholder="Şifrə" />
+            </div>
+            <span asp-validation-for="Password" class="field-validation"></span>
+
+            <div class="remember-row">
+                <label class="remember-label">
+                    <input asp-for="RememberMe" />
+                    <span>Məni xatırla</span>
+                </label>
+            </div>
+
+            <button type="submit" class="login-btn-neu">Daxil ol</button>
+
+            <div class="login-links">
+                <a href="/">Ana səhifəyə qayıt</a>
+                <a href="/Account/AccessDenied">Giriş problemi?</a>
+            </div>
+        </form>
     </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<style>
+    .login-page-wrapper {
+        min-height: calc(100vh - 140px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px 70px;
+        background: #eef1f5;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 430px;
+        padding: 42px 34px;
+        border-radius: 28px;
+        background: #eef1f5;
+        box-shadow: 14px 14px 30px #cfd3d8, -14px -14px 30px #ffffff;
+    }
+
+    .login-title {
+        text-align: center;
+        margin-bottom: 34px;
+        color: #24324a;
+        font-size: 42px;
+        font-weight: 700;
+        letter-spacing: 3px;
+    }
+
+    .login-form {
+        width: 100%;
+    }
+
+    .login-validation {
+        margin-bottom: 18px;
+        padding: 12px 16px;
+        border-radius: 14px;
+        background: #fdecec;
+        color: #c0392b;
+        font-size: 14px;
+        box-shadow: inset 4px 4px 8px #efdcdd, inset -4px -4px 8px #ffffff;
+    }
+
+    .input-group-neu {
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+        .input-group-neu input {
+            width: 100%;
+            padding: 16px 20px 16px 54px;
+            border: none;
+            outline: none;
+            background: #eef1f5;
+            border-radius: 18px;
+            font-size: 15px;
+            color: #24324a;
+            box-shadow: inset 6px 6px 12px #d4d8de, inset -6px -6px 12px #ffffff;
+            transition: 0.25s ease;
+        }
+
+            .input-group-neu input::placeholder {
+                color: #8a94a6;
+            }
+
+            .input-group-neu input:focus {
+                box-shadow: inset 4px 4px 10px #cfd3d8, inset -4px -4px 10px #ffffff, 0 0 0 3px rgba(59,130,246,0.10);
+            }
+
+        .input-group-neu i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #41506b;
+            font-size: 22px;
+        }
+
+    .field-validation {
+        display: block;
+        min-height: 22px;
+        margin: 4px 2px 10px;
+        color: #dc3545;
+        font-size: 13px;
+    }
+
+    .remember-row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 6px 2px 22px;
+    }
+
+    .remember-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #334155;
+        font-size: 14px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+        .remember-label input {
+            width: 16px;
+            height: 16px;
+            accent-color: #2563eb;
+        }
+
+    .login-btn-neu {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        outline: none;
+        background: #eef1f5;
+        border-radius: 18px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #24324a;
+        cursor: pointer;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 8px 8px 18px #d2d6db, -8px -8px 18px #ffffff;
+        transition: all 0.25s ease;
+    }
+
+        .login-btn-neu:hover {
+            box-shadow: inset 6px 6px 12px #d4d8de, inset -6px -6px 12px #ffffff;
+        }
+
+        .login-btn-neu:active {
+            transform: scale(0.98);
+        }
+
+    .login-links {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 26px;
+        flex-wrap: wrap;
+    }
+
+        .login-links a {
+            text-decoration: none;
+            color: #41506b;
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+            .login-links a:hover {
+                color: #1d4ed8;
+                text-decoration: underline;
+            }
+
+    @@media (max-width: 576px) {
+        .login-page-wrapper
+
+    {
+        padding: 24px 14px 50px;
+        min-height: calc(100vh - 110px);
+    }
+
+    .login-card {
+        max-width: 100%;
+        padding: 30px 22px;
+        border-radius: 24px;
+    }
+
+    .login-title {
+        font-size: 34px;
+        margin-bottom: 28px;
+    }
+
+    .input-group-neu input {
+        padding: 14px 16px 14px 48px;
+    }
+
+    .input-group-neu i {
+        left: 16px;
+        font-size: 20px;
+    }
+
+    .login-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    }
+</style>

@@ -1,11 +1,30 @@
 ﻿@{
-    ViewData["Title"] = "Access Denied";
+    ViewData["Title"] = "Giriş problemi";
 }
 
-<div class="container" style="max-width: 600px; margin-top: 80px;">
-    <div class="alert alert-danger text-center">
-        <h3>Giriş qadağandır</h3>
-        <p>Bu səhifəyə baxmaq üçün icazəniz yoxdur.</p>
-        <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-primary">Login səhifəsinə qayıt</a>
+<div style="min-height: calc(100vh - 140px); display:flex; justify-content:center; align-items:center; padding:40px 20px; background:#eef1f5;">
+    <div style="width:100%; max-width:520px; padding:36px 30px; border-radius:24px; background:#eef1f5; box-shadow:14px 14px 30px #cfd3d8, -14px -14px 30px #ffffff; text-align:center;">
+        <div style="font-size:56px; color:#dc3545; margin-bottom:12px;">
+            <i class="mdi mdi-alert-circle-outline"></i>
+        </div>
+
+        <h2 style="margin-bottom:12px; color:#24324a; font-weight:700;">Giriş problemi</h2>
+
+        <p style="color:#5b6678; font-size:15px; line-height:1.6; margin-bottom:26px;">
+            Bu səhifəyə giriş icazəniz yoxdur və ya hesab məlumatlarınız uyğun deyil.
+            Yenidən daxil olmağa cəhd edin.
+        </p>
+
+        <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+            <a asp-area="" asp-controller="Account" asp-action="Login">
+               style="text-decoration:none; padding:12px 18px; border-radius:14px; background:#eef1f5; color:#24324a; font-weight:600; box-shadow:8px 8px 18px #d2d6db, -8px -8px 18px #ffffff;">
+                Yenidən daxil ol
+            </a>
+
+            <a href="/"
+               style="text-decoration:none; padding:12px 18px; border-radius:14px; background:#eef1f5; color:#24324a; font-weight:600; box-shadow:8px 8px 18px #d2d6db, -8px -8px 18px #ffffff;">
+                Ana səhifə
+            </a>
+        </div>
     </div>
 </div>

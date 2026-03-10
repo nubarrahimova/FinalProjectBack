@@ -1,99 +1,441 @@
-﻿@model List<FinalProject.Models.Doctor>
+﻿@model FinalProject.Areas.AdminPanel.ViewModels.DashboardVM
+@using System.Text.Json
 
 @{
-    ViewData["Title"] = "Həkimlər";
+    ViewData["Title"] = "Dashboard";
+    var chartLabelsJson = JsonSerializer.Serialize(Model.MonthlyLabels);
+    var chartDataJson = JsonSerializer.Serialize(Model.MonthlyAppointmentCounts);
 }
 
-<div class="row mb-4">
-    <div class="col-12 d-flex justify-content-between align-items-center">
-        <div>
-            <h3 style="font-weight:700; color:#2c3e50;">Həkimlər</h3>
-            <p style="color:#6c757d; margin-bottom:0;">Sistemdə qeydiyyatda olan həkimlər</p>
+<div class="row">
+    <div class="col-12 mb-4">
+        <h3 style="font-weight:700; color:#2c3e50;">Dashboard</h3>
+        <p style="color:#6c757d; margin-bottom:0;">
+            Admin panelin ümumi statistikası
+        </p>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <a href="/admin/appointments" class="dashboard-card dashboard-card-blue">
+            <div>
+                <div class="dashboard-card-title">Ümumi randevu</div>
+                <div class="dashboard-card-value">@Model.TotalAppointments</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-calendar-text"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <a href="/admin/appointments?status=New" class="dashboard-card dashboard-card-yellow">
+            <div>
+                <div class="dashboard-card-title">Yeni randevu</div>
+                <div class="dashboard-card-value">@Model.NewAppointments</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-timer-sand"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <a href="/admin/appointments?status=Approved" class="dashboard-card dashboard-card-green">
+            <div>
+                <div class="dashboard-card-title">Təsdiqlənən</div>
+                <div class="dashboard-card-value">@Model.ApprovedAppointments</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-check-circle-outline"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <a href="/admin/appointments?status=Rejected" class="dashboard-card dashboard-card-red">
+            <div>
+                <div class="dashboard-card-title">Rədd edilən</div>
+                <div class="dashboard-card-value">@Model.RejectedAppointments</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-close-circle-outline"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <a href="/admin/articles" class="dashboard-card dashboard-card-purple">
+            <div>
+                <div class="dashboard-card-title">Məqalə sayı</div>
+                <div class="dashboard-card-value">@Model.TotalArticles</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-file-document-outline"></i>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-6 col-xl-4 mb-4">
+        <a href="/admin/doctors" class="dashboard-card dashboard-card-dark">
+            <div>
+                <div class="dashboard-card-title">Həkim sayı</div>
+                <div class="dashboard-card-value">@Model.TotalDoctors</div>
+            </div>
+            <div class="dashboard-card-icon">
+                <i class="mdi mdi-doctor"></i>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="chart-card">
+            <div class="chart-card-header">
+                <div>
+                    <h5 class="chart-card-title">Aylıq randevu statistikası</h5>
+                    <p class="chart-card-subtitle">@Model.CurrentYear ili üzrə randevu sayı</p>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="appointmentsChart"></canvas>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="card shadow-sm border-0" style="border-radius:16px;">
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead>
-                    <tr>
-                        <th style="padding-left:20px;">#</th>
-                        <th>Ad Soyad</th>
-                        <th>Klinika</th>
-                        <th>Təcrübə</th>
-                        <th>İxtisas</th>
-                        <th>Slug</th>
-                    </tr>
-                </thead>
-                <tbody>
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="recent-card">
+            <div class="recent-card-header">
+                <div>
+                    <h5 class="recent-card-title">Son 5 randevu</h5>
+                    <p class="recent-card-subtitle">Ən son daxil olan randevular</p>
+                </div>
 
-                    @if (Model != null && Model.Any())
-                    {
-                        int count = 1;
+                <a href="/admin/appointments" class="recent-card-link">
+                    Hamısına bax
+                </a>
+            </div>
 
-                        @foreach (var item in Model)
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Pasiyent</th>
+                            <th>Telefon</th>
+                            @if (Model.ShowDoctorColumn)
+                            {
+                                <th>Həkim</th>
+                            }
+                            <th>Tarix</th>
+                            <th>Vaxt</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.RecentAppointments.Any())
+                        {
+                            @foreach (var item in Model.RecentAppointments)
+                            {
+                                <tr>
+                                    <td>@item.FullName</td>
+                                    <td>@item.Phone</td>
+
+                                    @if (Model.ShowDoctorColumn)
+                                    {
+                                        <td>@item.DoctorName</td>
+                                    }
+
+                                    <td>@item.Date.ToString("dd.MM.yyyy")</td>
+                                    <td>@item.Time</td>
+                                    <td>
+                                        @if (item.Status == "Approved")
+                                        {
+                                            <span class="dashboard-status-badge dashboard-status-approved">
+                                                <i class="mdi mdi-check-circle-outline"></i>
+                                                Təsdiqləndi
+                                            </span>
+                                        }
+                                        else if (item.Status == "Rejected")
+                                        {
+                                            <span class="dashboard-status-badge dashboard-status-rejected">
+                                                <i class="mdi mdi-close-circle-outline"></i>
+                                                Rədd edildi
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="dashboard-status-badge dashboard-status-pending">
+                                                <i class="mdi mdi-timer-sand"></i>
+                                                Yeni
+                                            </span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
                         {
                             <tr>
-                                <td style="padding-left:20px;">@count</td>
-
-                                <td>
-                                    <strong>@item.FullName</strong>
-                                </td>
-
-                                <td>
-                                    @(string.IsNullOrEmpty(item.Clinic) ? "-" : item.Clinic)
-                                </td>
-
-                                <td>
-                                    @item.ExperienceYears il
-                                </td>
-
-                                <td>
-                                    @(item.Speciality != null ? item.Speciality.Name : "-")
-                                </td>
-
-                                <td>
-                                    <span class="text-muted">@item.Slug</span>
+                                <td colspan="6" class="text-center text-muted py-4">
+                                    Randevu tapılmadı.
                                 </td>
                             </tr>
-
-                            count++;
                         }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="6" class="text-center py-4 text-muted">
-                                Həkim tapılmadı
-                            </td>
-                        </tr>
-                    }
-
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
+    .dashboard-card {
+        border-radius: 16px;
+        padding: 22px 24px;
+        min-height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+        box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+    }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+            color: white;
+            text-decoration: none;
+        }
+
+    .dashboard-card-title {
+        font-size: 15px;
+        font-weight: 600;
+        opacity: 0.95;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-card-value {
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .dashboard-card-icon i {
+        font-size: 42px;
+        opacity: 0.9;
+    }
+
+    .dashboard-card-blue {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+
+    .dashboard-card-yellow {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    }
+
+    .dashboard-card-green {
+        background: linear-gradient(135deg, #22c55e, #15803d);
+    }
+
+    .dashboard-card-red {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    .dashboard-card-purple {
+        background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    }
+
+    .dashboard-card-dark {
+        background: linear-gradient(135deg, #334155, #0f172a);
+    }
+
+    .chart-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 22px;
+        box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+        border: 1px solid #eef2f7;
+    }
+
+    .chart-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+        gap: 12px;
+    }
+
+    .chart-card-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    .chart-card-subtitle {
+        margin: 4px 0 0 0;
+        color: #6c757d;
+        font-size: 13px;
+    }
+
+    .chart-wrapper {
+        position: relative;
+        width: 100%;
+        min-height: 360px;
+    }
+
+    .recent-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 22px;
+        box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+        border: 1px solid #eef2f7;
+    }
+
+    .recent-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+        gap: 12px;
+    }
+
+    .recent-card-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    .recent-card-subtitle {
+        margin: 4px 0 0 0;
+        color: #6c757d;
+        font-size: 13px;
+    }
+
+    .recent-card-link {
+        background: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #bfdbfe;
+        border-radius: 10px;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+        .recent-card-link:hover {
+            text-decoration: none;
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
     .table thead th {
         font-weight: 700;
         color: #2c3e50;
         border-bottom: 2px solid #eef2f7;
+        padding-top: 14px;
+        padding-bottom: 14px;
     }
 
     .table td {
+        vertical-align: middle;
         padding-top: 16px;
         padding-bottom: 16px;
     }
 
-    .table tbody tr {
-        transition: all .2s;
+    .dashboard-status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 120px;
+        justify-content: center;
+        padding: 7px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
     }
 
-        .table tbody tr:hover {
-            background: #f8fbff;
+        .dashboard-status-badge i {
+            font-size: 14px;
         }
+
+    .dashboard-status-approved {
+        background-color: #eaf8ef;
+        color: #198754;
+        border: 1px solid #bfe7cc;
+    }
+
+    .dashboard-status-rejected {
+        background-color: #fdecec;
+        color: #dc3545;
+        border: 1px solid #f2b8be;
+    }
+
+    .dashboard-status-pending {
+        background-color: #fff8e1;
+        color: #b78103;
+        border: 1px solid #f3df9b;
+    }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const appointmentsChartLabels = @Html.Raw(chartLabelsJson);
+    const appointmentsChartData = @Html.Raw(chartDataJson);
+
+    const appointmentsChartCanvas = document.getElementById('appointmentsChart');
+
+    new Chart(appointmentsChartCanvas, {
+        type: 'bar',
+        data: {
+            labels: appointmentsChartLabels,
+            datasets: [{
+                label: 'Randevu sayı',
+                data: appointmentsChartData,
+                backgroundColor: 'rgba(59, 130, 246, 0.75)',
+                borderColor: 'rgba(37, 99, 235, 1)',
+                borderWidth: 1,
+                borderRadius: 8,
+                maxBarThickness: 42
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    },
+                    grid: {
+                        color: '#eef2f7'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+</script>

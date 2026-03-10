@@ -105,7 +105,6 @@ namespace FinalProject.Areas.AdminPanel.Controllers
                     .CountAsync(x => x.DoctorId == currentDoctor.Id);
 
                 model.TotalDoctors = 1;
-
                 model.ShowDoctorColumn = false;
 
                 model.RecentAppointments = await _context.Appointments

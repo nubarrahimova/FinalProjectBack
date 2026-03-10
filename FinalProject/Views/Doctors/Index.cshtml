@@ -1,59 +1,195 @@
-﻿@model DoctorsIndexVM
+﻿@model FinalProject.ViewModels.Doctors.DoctorsIndexVM
+
 @{
     ViewData["Title"] = "Həkimlər";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="~/assets/css/doctors.css" />
-}
+<section class="page-section">
+    <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap; margin-bottom:28px;">
+            <div>
+                <h1 style="margin:0 0 8px; font-size:44px; line-height:1.15; font-weight:800; color:#101828;">
+                    @Model.CityTitle
+                </h1>
+                <p style="margin:0; color:#667085; font-size:16px;">
+                    Axtarış, ixtisas və sıralama ilə uyğun həkimi seçin.
+                </p>
+            </div>
 
-<div class="container">
-    <header class="page-head">
-        <div class="head-row">
-            <div><h1>@Model.CityTitle</h1></div>
-
-            <div class="filters">
-                <select class="pill-select" aria-label="Təcrübəyə görə">
-                    <option>Təcrübəyə görə</option>
-                </select>
-                <select class="pill-select" aria-label="Əlifba sırası">
-                    <option>Əlifba sırası</option>
-                </select>
-                <select class="pill-select" aria-label="Kateqoriya">
-                    <option>Bütün kateqoriyalar</option>
-                </select>
+            <div style="color:#667085; font-size:15px; font-weight:600;">
+                Tapıldı: @Model.Doctors.Count həkim
             </div>
         </div>
-    </header>
 
-    <section class="grid" aria-label="Doctors grid">
-        @foreach (var d in Model.Doctors)
+        <form method="get" asp-controller="Doctors" asp-action="Index"
+              style="background:#fff; border:1px solid #e7edf5; border-radius:22px; box-shadow:0 10px 30px rgba(16,24,40,0.06); padding:20px; margin-bottom:28px;">
+            <div class="doctor-filter-grid" style="display:grid; grid-template-columns:2fr 1fr 1fr auto auto; gap:14px; align-items:end;">
+
+                <div>
+                    <label style="display:block; margin-bottom:8px; font-size:14px; font-weight:600; color:#344054;">
+                        Axtarış
+                    </label>
+                    <input type="text"
+                           name="search"
+                           value="@Model.Search"
+                           placeholder="Həkim adı, klinika və ya ixtisas..."
+                           style="width:100%; height:48px; padding:0 14px; border:1px solid #dbe4f0; border-radius:14px; outline:none;" />
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom:8px; font-size:14px; font-weight:600; color:#344054;">
+                        Kateqoriya
+                    </label>
+                    <select name="specialtyId"
+                            style="width:100%; height:48px; padding:0 14px; border:1px solid #dbe4f0; border-radius:14px; outline:none; background:#fff;">
+                        <option value="">Bütün kateqoriyalar</option>
+                        @foreach (var speciality in Model.Specialities)
+                        {
+                            if (Model.SpecialtyId == speciality.Id)
+                            {
+                                <option value="@speciality.Id" selected>@speciality.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@speciality.Id">@speciality.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div>
+                    <label style="display:block; margin-bottom:8px; font-size:14px; font-weight:600; color:#344054;">
+                        Sıralama
+                    </label>
+                    <select name="sortBy"
+                            style="width:100%; height:48px; padding:0 14px; border:1px solid #dbe4f0; border-radius:14px; outline:none; background:#fff;">
+                        @if (Model.SortBy == "experience_desc")
+                        {
+                            <option value="name_asc">Ad üzrə A-Z</option>
+                            <option value="name_desc">Ad üzrə Z-A</option>
+                            <option value="experience_desc" selected>Təcrübə çoxdan aza</option>
+                            <option value="experience_asc">Təcrübə azdan çoxa</option>
+                        }
+                        else if (Model.SortBy == "experience_asc")
+                        {
+                            <option value="name_asc">Ad üzrə A-Z</option>
+                            <option value="name_desc">Ad üzrə Z-A</option>
+                            <option value="experience_desc">Təcrübə çoxdan aza</option>
+                            <option value="experience_asc" selected>Təcrübə azdan çoxa</option>
+                        }
+                        else if (Model.SortBy == "name_desc")
+                        {
+                            <option value="name_asc">Ad üzrə A-Z</option>
+                            <option value="name_desc" selected>Ad üzrə Z-A</option>
+                            <option value="experience_desc">Təcrübə çoxdan aza</option>
+                            <option value="experience_asc">Təcrübə azdan çoxa</option>
+                        }
+                        else
+                        {
+                            <option value="name_asc" selected>Ad üzrə A-Z</option>
+                            <option value="name_desc">Ad üzrə Z-A</option>
+                            <option value="experience_desc">Təcrübə çoxdan aza</option>
+                            <option value="experience_asc">Təcrübə azdan çoxa</option>
+                        }
+                    </select>
+                </div>
+
+                <div>
+                    <button type="submit"
+                            style="height:48px; padding:0 20px; border:none; border-radius:14px; background:#2f80ed; color:#fff; font-weight:700; cursor:pointer; min-width:110px;">
+                        Filterlə
+                    </button>
+                </div>
+
+                <div>
+                    <a href="/Doctors"
+                       style="height:48px; padding:0 20px; border:1px solid #dbe4f0; border-radius:14px; background:#fff; color:#344054; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; min-width:110px;">
+                        Təmizlə
+                    </a>
+                </div>
+            </div>
+        </form>
+
+        @if (Model.Doctors.Any())
         {
-            <article class="doc-card" data-name="@d.FullName" data-exp="@d.ExperienceYears" data-cat="@d.Speciality">
-                <div class="doc-body">
-                    <div class="avatar-wrap">
-                        <img src="@d.PhotoUrl" alt="@d.FullName" />
-                        <span class="ig-badge" aria-hidden="true"></span>
+            <div class="doctor-cards-grid" style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:24px;">
+                @foreach (var doctor in Model.Doctors)
+                {
+                    <div style="background:#fff; border:1px solid #e7edf5; border-radius:22px; box-shadow:0 10px 30px rgba(16,24,40,0.06); padding:20px; display:flex; flex-direction:column;">
+                        <div style="display:flex; align-items:flex-start; gap:14px; margin-bottom:16px;">
+                            <img src="@(string.IsNullOrWhiteSpace(doctor.PhotoUrl) ? "/images/doctor.png" : doctor.PhotoUrl)"
+                                 alt="@doctor.FullName"
+                                 style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:1px solid #e5e7eb; background:#f8fafc;" />
+
+                            <div>
+                                <h3 style="margin:0 0 4px; font-size:19px; line-height:1.35; font-weight:700; color:#101828;">
+                                    @doctor.FullName
+                                </h3>
+
+                                <div style="margin-bottom:6px; color:#2f80ed; font-size:15px; font-weight:600;">
+                                    @doctor.SpecialityName
+                                </div>
+
+                                <div style="color:#667085; font-size:14px;">
+                                    İş stajı: @doctor.ExperienceYears il
+                                </div>
+
+                                @if (!string.IsNullOrWhiteSpace(doctor.Clinic))
+                                {
+                                    <div style="margin-top:4px; color:#667085; font-size:14px;">
+                                        @doctor.Clinic
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div style="margin-top:auto; display:flex; flex-direction:column; gap:10px;">
+                            <a href="/Doctors/@doctor.Slug"
+                               style="height:44px; border:1px solid #dbe4f0; border-radius:14px; background:#fff; color:#344054; text-decoration:none; display:flex; align-items:center; justify-content:center; font-weight:700;">
+                                Ətraflı
+                            </a>
+
+                            <a href="/Booking/Create?doctorId=@doctor.Id"
+                               style="height:44px; border:none; border-radius:14px; background:#2f80ed; color:#fff; text-decoration:none; display:flex; align-items:center; justify-content:center; font-weight:700;">
+                                Qəbul üçün yazıl
+                            </a>
+                        </div>
                     </div>
-
-                    <div class="name-row">
-                        <h3 class="doc-name">@d.FullName</h3>
-                        <span class="verified" aria-label="Verified"></span>
-                    </div>
-
-                    <a class="spec" href="#">@d.Speciality</a>
-
-                    <div class="meta">
-                        <div>İş stajı (il): @d.ExperienceYears</div>
-                        <div>@d.Clinic</div>
-                    </div>
-                </div>
-
-                <div class="doc-actions">
-                    <a class="btn" href="/doctors/@d.Slug">Ətraflı</a>
-                    <a class="btn primary" href="/booking/@d.Slug">Qəbul üçün yazıl</a>
-                </div>
-            </article>
+                }
+            </div>
         }
-    </section>
-</div>
+        else
+        {
+            <div style="background:#fff; border:1px solid #e7edf5; border-radius:22px; box-shadow:0 10px 30px rgba(16,24,40,0.06); padding:28px; text-align:center;">
+                <h3 style="margin:0 0 10px; color:#101828;">Uyğun həkim tapılmadı</h3>
+                <p style="margin:0; color:#667085;">
+                    Axtarış sözünü və filterləri dəyişib yenidən yoxlayın.
+                </p>
+            </div>
+        }
+    </div>
+</section>
+
+@section Styles {
+    <style>
+        @@media (max-width: 992px) {
+            .doctor-filter-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+
+            .doctor-cards-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .doctor-filter-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .doctor-cards-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+}

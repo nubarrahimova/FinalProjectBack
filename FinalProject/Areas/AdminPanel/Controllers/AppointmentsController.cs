@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using FinalProject.Data;
+﻿using FinalProject.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace FinalProject.Areas.AdminPanel.Controllers
@@ -11,13 +11,14 @@ namespace FinalProject.Areas.AdminPanel.Controllers
     public class AppointmentsController : Controller
     {
         private readonly AppDbContext _context;
+        private const int PageSize = 8;
 
         public AppointmentsController(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string? status, string? search)
+        public async Task<IActionResult> Index(string? status, string? search, int page = 1)
         {
             var query = _context.Appointments
                 .Include(x => x.Doctor)
@@ -51,16 +52,43 @@ namespace FinalProject.Areas.AdminPanel.Controllers
                     x.Phone.Contains(search));
             }
 
+            var totalCount = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)PageSize);
+
+            if (totalPages == 0)
+            {
+                totalPages = 1;
+            }
+
+            if (page < 1)
+            {
+                page = 1;
+            }
+
+            if (page > totalPages)
+            {
+                page = totalPages;
+            }
+
             var appointments = await query
                 .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
                 .ToListAsync();
+
+            ViewBag.SelectedStatus = status;
+            ViewBag.Search = search;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.TotalCount = totalCount;
+            ViewBag.PageSize = PageSize;
 
             return View(appointments);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Approve(int id)
+        public async Task<IActionResult> Approve(int id, int page = 1, string? status = null, string? search = null)
         {
             if (!await CanAccessAppointmentAsync(id))
             {
@@ -79,12 +107,12 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             TempData["ToastMessage"] = "Randevu uğurla təsdiqləndi.";
             TempData["ToastType"] = "success";
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { page, status, search });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reject(int id)
+        public async Task<IActionResult> Reject(int id, int page = 1, string? status = null, string? search = null)
         {
             if (!await CanAccessAppointmentAsync(id))
             {
@@ -103,12 +131,12 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             TempData["ToastMessage"] = "Randevu rədd edildi.";
             TempData["ToastType"] = "warning";
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { page, status, search });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, int page = 1, string? status = null, string? search = null)
         {
             if (!await CanAccessAppointmentAsync(id))
             {
@@ -127,7 +155,7 @@ namespace FinalProject.Areas.AdminPanel.Controllers
             TempData["ToastMessage"] = "Randevu silindi.";
             TempData["ToastType"] = "info";
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { page, status, search });
         }
 
         private async Task<bool> CanAccessAppointmentAsync(int appointmentId)

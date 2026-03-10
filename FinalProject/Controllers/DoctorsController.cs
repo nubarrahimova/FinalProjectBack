@@ -1,29 +1,57 @@
 ﻿using FinalProject.Data;
 using FinalProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using FinalProject.Data;
+using FinalProject.Models;
+using FinalProject.ViewModels;
+using FinalProject.ViewModels.Doctors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace FinalProject.Controllers
 {
-
     public class DoctorsController : Controller
     {
-     
-    private readonly AppDbContext _context;
+        private readonly AppDbContext _context;
 
-    public DoctorsController(AppDbContext context)
-    {
-        _context = context;
-    }
+        public DoctorsController(AppDbContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet("/doctors")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? search, int? specialtyId, string? sortBy)
         {
-            var doctorsFromDb = await _context.Doctors
+            var query = _context.Doctors
                 .Include(d => d.Speciality)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var normalizedSearch = search.Trim().ToLower();
+
+                query = query.Where(d =>
+                    d.FullName.ToLower().Contains(normalizedSearch) ||
+                    (d.Clinic != null && d.Clinic.ToLower().Contains(normalizedSearch)) ||
+                    (d.Speciality != null && d.Speciality.Name.ToLower().Contains(normalizedSearch)));
+            }
+
+            if (specialtyId.HasValue)
+            {
+                query = query.Where(d => d.SpecialityId == specialtyId.Value);
+            }
+
+            query = sortBy switch
+            {
+                "experience_desc" => query.OrderByDescending(d => d.ExperienceYears).ThenBy(d => d.FullName),
+                "experience_asc" => query.OrderBy(d => d.ExperienceYears).ThenBy(d => d.FullName),
+                "name_desc" => query.OrderByDescending(d => d.FullName),
+                _ => query.OrderBy(d => d.FullName)
+            };
+
+            var doctorsFromDb = await query
                 .Select(d => new DoctorCardVM(
+                    d.Id,
                     d.Slug,
                     d.FullName,
                     d.Speciality != null ? d.Speciality.Name : "",
@@ -33,14 +61,23 @@ namespace FinalProject.Controllers
                 ))
                 .ToListAsync();
 
+            var specialities = await _context.Specialities
+                .OrderBy(s => s.Name)
+                .ToListAsync();
+
             var vm = new DoctorsIndexVM
             {
                 CityTitle = "Bakıda həkimlər",
-                Doctors = doctorsFromDb
+                Doctors = doctorsFromDb,
+                Search = search,
+                SpecialtyId = specialtyId,
+                SortBy = sortBy,
+                Specialities = specialities
             };
 
             return View(vm);
         }
+
         [HttpGet("/doctors/{slug}")]
         public async Task<IActionResult> Details(string slug)
         {

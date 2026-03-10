@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>@ViewData["Title"] - MedZapis</title>
 
-    <link rel="stylesheet" href="~/assets/css/style.css" />
+    <link rel="stylesheet" href="~/assets/css/style.css" asp-append-version="true" />
     @RenderSection("Styles", required: false)
+
 </head>
 <body>
     <header class="header">
@@ -19,6 +20,7 @@
                     <a class="lng" href="?lang=ru">RU</a>
                     <a class="lng" href="?lang=en">EN</a>
                 </div>
+
                 <a class="btn primary nav-cta" href="/doctors">Qəbula yazıl</a>
             </div>
 
@@ -30,19 +32,35 @@
 
                 @if (User.Identity?.IsAuthenticated == true)
                 {
-                    <a href="/AdminPanel/Appointments" class="btn btn-primary">Kabinet</a>
+                    <a href="/AdminPanel/Appointments" class="btn-primary">Kabinet</a>
                 }
                 else
                 {
-                    <a href="/Account/Login" class="btn btn-outline-primary">Həkim/Admin girişi</a>
+                    <a href="/Account/Login" class="btn-outline-primary">Həkim/Admin girişi</a>
                 }
             </nav>
         </div>
     </header>
 
-    <main>
+    <main class="site-main">
         @RenderBody()
     </main>
+
+    <footer class="site-footer-custom">
+        <div class="footer-inner">
+            <div>© 2026 MedZapis · Bütün hüquqlar qorunur</div>
+            <div>Sayt daxili resurslarla hazırlanıb — <a href="/">DevCraft Digital</a>.</div>
+            <div>
+                MedZapis onlayn qeydiyyat üçün pulsuz platformadır. Tibbi xidmətin keyfiyyəti və məzmununa görə
+                məsuliyyət müvafiq həkim və ya klinikanın üzərindədir.
+            </div>
+
+            <div class="footer-links">
+                <a href="/#policy">Diskleymer</a>
+                <a href="/#policy">Məxfilik Siyasəti</a>
+            </div>
+        </div>
+    </footer>
 
     @RenderSection("Scripts", required: false)
 </body>

@@ -76,6 +76,12 @@ namespace FinalProject.Controllers
             ModelState.AddModelError(string.Empty, "Bu panelə giriş icazəniz yoxdur.");
             return View(model);
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -4,299 +4,323 @@
     var homeArticles = ViewBag.HomeArticles as List<Article> ?? new List<Article>();
 }
 
-<main>
-    <section class="hero">
-        <div class="container hero-grid">
-            <div class="hero-copy">
-                <h1>Onlayn həkim qəbulu — sadə, təhlükəsiz, rəsmi</h1>
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <h1>Onlayn həkim qəbulu — sadə, təhlükəsiz, rəsmi</h1>
 
-                <p class="lead">
-                    <strong>MedZapis</strong> — özəl mütəxəssislər və klinikalar üçün onlayn qeydiyyat
-                    platformasıdır. Qaydaların aydınlığına və məlumatların qorunmasına fokuslanırıq ki,
-                    özünüzü arxayın hiss edəsiniz.
-                </p>
-
-                <p class="muted" style="margin-top:12px;">
-                    Hazırda MedZapis ictimai test rejimindədir. Funksiyaları addım-addım artırırıq.
-                    Hər hansı nasazlıq görsəniz, zəhmət olmasa
-                    <a href="mailto:copy4hub@gmail.com">copy4hub@gmail.com</a> ünvanına yazın.
-                    <br />
-                    Təşəkkür edirik!
-                </p>
-
-                <div class="cta">
-                    <a class="btn primary" href="/Doctors">Həkim tap</a>
-                    <button class="btn" id="pricingBtn" type="button">Həkimlər üçün tariflər</button>
-                </div>
-
-                <div class="card hero-card" style="margin-top:14px;">
-                    <ul class="hero-ul">
-                        <li class="hero-li">
-                            <span class="check">✓</span>
-                            <span>
-                                Aydın şərtlər: bir səhifədə qısa
-                                <a href="#policy">siyasət və diskleymer</a>
-                            </span>
-                        </li>
-                        <li class="hero-li">
-                            <span class="check">✓</span>
-                            <span>Xatırlatmalar və təqvimə əlavə (ICS)</span>
-                        </li>
-                        <li class="hero-li">
-                            <span class="check">✓</span>
-                            <span>Məlumatlar şifrələnir və razılıq olmadan üçüncü tərəflərlə paylaşılmır</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="hero-visual">
-                <div class="phone" aria-label="MedZapis preview">
-                    <div class="phone-top"></div>
-                    <div class="screen">
-                        <img src="/assets/images/screenshoot_medzapis_az.jpg" alt="MedZapis şəkil" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">Xidmət haqqında</h2>
-
-            <p class="muted">
-                MedZapis — xəstələrin həkimə tez yazılması və mütəxəssislərin cədvəli rahat idarə etməsi üçün
-                texnoloji platformadır. Biz tibbi xidmət göstərmirik və “həkim–pasiyent” münasibətlərinə
-                müdaxilə etmirik.
+            <p class="lead">
+                <strong>MedZapis</strong> — özəl mütəxəssislər və klinikalar üçün onlayn qeydiyyat
+                platformasıdır. Qaydaların aydınlığına və məlumatların qorunmasına fokuslanırıq ki,
+                özünüzü arxayın hiss edəsiniz.
             </p>
 
-            <div class="grid-3">
-                <div class="card feature">
-                    <h3>1–2 dəqiqəyə yazılın</h3>
-                    <p class="muted">Mütəxəssis və vaxt seçin — təsdiq e-poçt / mesencerlə göndərilir.</p>
-                </div>
+            <p class="muted" style="margin-top:12px;">
+                Hazırda MedZapis ictimai test rejimindədir. Funksiyaları addım-addım artırırıq.
+                Hər hansı nasazlıq görsəniz, zəhmət olmasa
+                <a href="mailto:copy4hub@gmail.com">copy4hub@gmail.com</a> ünvanına yazın.
+                <br />
+                Təşəkkür edirik!
+            </p>
 
-                <div class="card feature">
-                    <h3>Təqvim və xatırlatmalar</h3>
-                    <p class="muted">Qəbulu bir kliklə təqvimə əlavə edin. Unutmamaq üçün bildirişlər.</p>
-                </div>
+            <div class="cta">
+                <a class="btn primary" href="/Doctors">Həkim tap</a>
+                <button class="btn" id="pricingBtn" type="button">Həkimlər üçün tariflər</button>
+            </div>
 
-                <div class="card feature">
-                    <h3>Şəffaflıq</h3>
-                    <p class="muted">
-                        Qaydaları əvvəlcədən anlamaq üçün səhifənin sonunda qısa siyasət və diskleymer.
-                    </p>
-                </div>
+            <div class="card hero-card" style="margin-top:14px;">
+                <ul class="hero-ul">
+                    <li class="hero-li">
+                        <span class="check">✓</span>
+                        <span>
+                            Aydın şərtlər: bir səhifədə qısa
+                            <a href="#policy">siyasət və diskleymer</a>
+                        </span>
+                    </li>
+                    <li class="hero-li">
+                        <span class="check">✓</span>
+                        <span>Xatırlatmalar və təqvimə əlavə (ICS)</span>
+                    </li>
+                    <li class="hero-li">
+                        <span class="check">✓</span>
+                        <span>Məlumatlar şifrələnir və razılıq olmadan üçüncü tərəflərlə paylaşılmır</span>
+                    </li>
+                </ul>
             </div>
         </div>
-    </section>
 
-    <section id="faq">
-        <div class="container">
-            <h2 class="section-title">MedZapis haqqında tez-tez verilən suallar</h2>
-
-            <div class="card info">
-                <details class="faq-item" open>
-                    <summary>MedZapis xəstələr üçün ödənişlidirmi?</summary>
-                    <p class="small">
-                        Xəstələr üçün MedZapis vasitəsilə onlayn qeydiyyat pulsuzdur. Siz yalnız seçdiyiniz
-                        həkimin və ya klinikanın qəbuluna görə ödəniş edirsiniz. MedZapis xəstədən əlavə
-                        komissiya almır və qiymətlərə qarışmır.
-                    </p>
-                </details>
-
-                <details class="faq-item">
-                    <summary>Tətbiq yükləməliyəmmi?</summary>
-                    <p class="small">
-                        Xeyr. MedZapis adi sayt kimi işləyir. Mobil brauzerdə “Ana ekrana əlavə et”
-                        funksiyasından istifadə edərək tətbiq kimi də qura bilərsiniz.
-                    </p>
-                </details>
-
-                <details class="faq-item">
-                    <summary>MedZapis həkimlər üçün nə verir?</summary>
-                    <p class="small">
-                        Həkim üçün MedZapis kiçik onlayn kabinetdir: qeydiyyatların vahid təqvimi,
-                        pasiyentlərin siyahısı və sadə statistika. Bu, iş gününü planlaşdırmağa,
-                        qeydiyyatları toplamağa və gəlməmələri azaltmağa kömək edir.
-                    </p>
-                </details>
-
-                <details class="faq-item">
-                    <summary>Tibbi xidmətə görə kim məsuliyyət daşıyır?</summary>
-                    <p class="small">
-                        Tibbi xidmətin keyfiyyətinə və məzmununa görə məsuliyyət birbaşa həkimin və ya
-                        klinikanın üzərindədir.
-                    </p>
-                </details>
-
-                <details class="faq-item">
-                    <summary>Məlumatlarım nə dərəcədə təhlükəsizdir?</summary>
-                    <p class="small">
-                        Biz yalnız qeydiyyat üçün lazım olan minimum məlumatları toplayırıq.
-                        Məlumatlar şifrələnmiş kanallar vasitəsilə ötürülür və qorunan serverlərdə saxlanılır.
-                    </p>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <section class="home-articles-section">
-        <div class="container">
-            <div class="home-articles-header">
-                <h2>Həkimlərimizin məqalələri</h2>
-                <p>
-                    Praktiki həkimlərdən qısa izahlar: simptomlar, analizlər və nə vaxt
-                    mütəxəssisə müraciət etmək lazımdır.
-                </p>
-            </div>
-
-            <section style="padding:56px 0; background:#f8fbff;">
-                <div style="max-width:1200px; margin:0 auto; padding:0 20px;">
-
-                    <div style="margin-bottom:28px;">
-                        <h2 style="margin:0 0 12px; font-size:36px; line-height:1.2; font-weight:700; color:#18212f;">
-                            Həkimlərimizin məqalələri
-                        </h2>
-
-                        <p style="margin:0; max-width:760px; font-size:16px; line-height:1.7; color:#667085;">
-                            Praktiki həkimlərdən qısa izahlar: simptomlar, analizlər və nə vaxt mütəxəssisə müraciət etmək lazımdır.
-                        </p>
-                    </div>
-
-                    <div style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:24px;">
-                        @foreach (var item in homeArticles)
-                        {
-                            <article class="article-card"
-                                     style="background:#fff; border:1px solid #edf2f7; border-radius:22px; padding:22px; min-height:320px; box-shadow:0 8px 24px rgba(15,23,42,0.04); display:flex; flex-direction:column; transition:0.25s;">
-
-                                <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
-                                    <img src="/images/doctor.png"
-                                         alt="Doctor"
-                                         style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:1px solid #e5e7eb; flex-shrink:0;"
-                                         onerror="this.style.display='none';" />
-
-                                    <div>
-                                        <div style="margin:0 0 2px; font-size:15px; line-height:1.3; font-weight:600; color:#1f2937;">
-                                            @(string.IsNullOrWhiteSpace(item.AuthorName)
-                                                                                    ? "Müəllif qeyd olunmayıb"
-                                                                                    : item.AuthorName)
-                                                                                                  </div>
-
-                                        <div style="display:block; font-size:14px; line-height:1.4; color:#7c8aa5;">
-                                            @(string.IsNullOrWhiteSpace(item.AuthorSpecialty)
-                                                                                    ? "İxtisas qeyd olunmayıb"
-                                                                                    : item.AuthorSpecialty)
-                                                                                                       </div>
-                                                                                                   </div>
-                                                                                               </div>
-
-                                <h3 style="margin:0 0 14px; font-size:19px; line-height:1.55; font-weight:700;">
-                                    <a href="/Articles/@item.Slug" style="color:#18212f; text-decoration:none;">
-                                        @item.Title
-                                    </a>
-                                </h3>
-
-                                <p style="margin:0 0 18px; font-size:15px; line-height:1.85; color:#667085; flex-grow:1;">
-                                    @(
-                                                                    string.IsNullOrWhiteSpace(item.Summary)
-                                                                    ? "Qısa məzmun əlavə edilməyib."
-                                                                    : (item.Summary.Length > 170
-                                                                    ? item.Summary.Substring(0, 170) + "..."
-                                                                    : item.Summary)
-                                                                    )
-                            </p>
-
-                                <a href="/Articles/@item.Slug"
-                                   style="display:inline-flex; align-items:center; gap:6px; margin-top:auto; font-size:15px; font-weight:600; color:#2f80ed; text-decoration:none;">
-                                    Daha çox oxu →
-                                </a>
-                            </article>
-                                                }
-                    </div>
-
-                    <div style="display:flex; justify-content:flex-end; margin-top:28px;">
-                        <a href="/Articles"
-                           style="display:inline-flex; align-items:center; justify-content:center; min-width:170px; height:48px; padding:0 20px; border:1px solid #d9e7fb; border-radius:999px; background:#fff; color:#2f80ed; font-size:15px; font-weight:600; text-decoration:none;">
-                            Bütün məqalələr
-                        </a>
-                    </div>
-
-                </div>
-            </section>
-
-            <div class="home-articles-footer">
-                <a class="home-articles-button" href="/Articles">
-                    Bütün məqalələr
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="contacts">
-        <div class="container">
-            <h2 class="section-title">Əlaqə</h2>
-
-            <div class="infogrid">
-                <div class="card info">
-                    <h3>Bizimlə əlaqə</h3>
-                    <p class="small">E-poçt: <a href="mailto:copy4hub@gmail.com">copy4hub@gmail.com</a></p>
-                    <p class="small">Telegram: <a href="https://t.me/webdevis">@@webdevis</a></p>
-                </div>
-
-                <div class="card info">
-                    <h3>Mütəxəssislər üçün</h3>
-                    <p class="small">
-                        Həkim/klinika kimi qoşulmaq istəyirsiniz? İxtisasınızı və üstünlük verdiyiniz
-                        qrafiki yazın. Sürətli start üçün kömək edəcəyik.
-                    </p>
+        <div class="hero-visual">
+            <div class="phone" aria-label="MedZapis preview">
+                <div class="phone-top"></div>
+                <div class="screen">
+                    <img src="/assets/images/screenshoot_medzapis_az.jpg" alt="MedZapis şəkil" />
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="policy">
-        <div class="container">
-            <h2 class="section-title">Qısa siyasət və məlumatların emalı</h2>
-
-            <div class="card info">
-                <p class="small">
-                    <strong>Nələri toplayırıq:</strong> ad, əlaqə məlumatları və seçilmiş qəbul vaxtı.
-                </p>
-
-                <p class="small">
-                    <strong>Saxlama:</strong> məlumatlar təhlükəsiz serverlərdə saxlanılır.
-                </p>
-
-                <p class="small">
-                    <strong>Məlumatların ötürülməsi:</strong> qəbulu təşkil etmək üçün yalnız zəruri
-                    informasiyanı həkim/klinikaya veririk.
-                </p>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container footgrid">
-        <div class="legal">
-            © <span id="y">2026</span> MedZapis · <span>Bütün hüquqlar qorunur</span><br />
-            <span>Sayt daxili resurslarla hazırlanıb —</span>
-            <a href="https://devcraft.digital/">DevCraft Digital</a>.<br />
-            <a href="https://medzapis.com/disclaimer">Diskleymer</a> ·
-            <a href="https://medzapis.com/privacy">Məxfilik Siyasəti</a>
         </div>
     </div>
-</footer>
+</section>
+
+<section id="about" class="page-section">
+    <div class="container">
+        <h2 class="section-title">Xidmət haqqında</h2>
+
+        <p class="section-subtitle">
+            MedZapis — xəstələrin həkimə tez yazılması və mütəxəssislərin cədvəli rahat idarə etməsi üçün
+            texnoloji platformadır. Biz tibbi xidmət göstərmirik və “həkim–pasiyent” münasibətlərinə
+            müdaxilə etmirik.
+        </p>
+
+        <div class="three-col-grid" style="margin-top:28px;">
+            <div class="soft-card">
+                <h3>1–2 dəqiqəyə yazılın</h3>
+                <p>Mütəxəssis və vaxt seçin — təsdiq e-poçt / mesencerlə göndərilir.</p>
+            </div>
+
+            <div class="soft-card">
+                <h3>Təqvim və xatırlatmalar</h3>
+                <p>Qəbulu bir kliklə təqvimə əlavə edin. Unutmamaq üçün bildirişlər.</p>
+            </div>
+
+            <div class="soft-card">
+                <h3>Şəffaflıq</h3>
+                <p>Qaydaları əvvəlcədən anlamaq üçün səhifənin sonunda qısa siyasət və diskleymer.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="page-section">
+    <div class="container">
+        <h2 class="section-title">MedZapis haqqında tez-tez verilən suallar</h2>
+
+        <div class="faq-box">
+            <details open>
+                <summary>MedZapis xəstələr üçün ödənişlidirmi?</summary>
+                <p>
+                    Xəstələr üçün MedZapis vasitəsilə onlayn qeydiyyat pulsuzdur. Siz yalnız seçdiyiniz
+                    həkimin və ya klinikanın qəbuluna görə ödəniş edirsiniz. MedZapis xəstədən əlavə
+                    komissiya almır və qiymətlərə qarışmır.
+                </p>
+            </details>
+
+            <details>
+                <summary>Tətbiq yükləməliyəmmi?</summary>
+                <p>
+                    Xeyr. MedZapis adi sayt kimi işləyir. Mobil brauzerdə “Ana ekrana əlavə et”
+                    funksiyasından istifadə edərək tətbiq kimi də qura bilərsiniz.
+                </p>
+            </details>
+
+            <details>
+                <summary>MedZapis həkimlər üçün nə verir?</summary>
+                <p>
+                    Həkim üçün MedZapis kiçik onlayn kabinetdir: qeydiyyatların vahid təqvimi,
+                    pasiyentlərin siyahısı və sadə statistika. Bu, iş gününü planlaşdırmağa,
+                    qeydiyyatları toplamağa və gəlməmələri azaltmağa kömək edir.
+                </p>
+            </details>
+
+            <details>
+                <summary>Tibbi xidmətə görə kim məsuliyyət daşıyır?</summary>
+                <p>
+                    Tibbi xidmətin keyfiyyətinə və məzmununa görə məsuliyyət birbaşa həkimin və ya
+                    klinikanın üzərindədir.
+                </p>
+            </details>
+
+            <details>
+                <summary>Məlumatlarım nə dərəcədə təhlükəsizdir?</summary>
+                <p>
+                    Biz yalnız qeydiyyat üçün lazım olan minimum məlumatları toplayırıq.
+                    Məlumatlar şifrələnmiş kanallar vasitəsilə ötürülür və qorunan serverlərdə saxlanılır.
+                </p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<section id="articles-home" class="home-articles-section">
+    <div class="container">
+        <div class="home-articles-header">
+            <h2>Həkimlərimizin məqalələri</h2>
+            <p>
+                Praktiki həkimlərdən qısa izahlar: simptomlar, analizlər və nə vaxt
+                mütəxəssisə müraciət etmək lazımdır.
+            </p>
+        </div>
+
+        <div class="home-articles-grid">
+            @foreach (var item in homeArticles)
+            {
+                <article class="home-article-card">
+                    <div class="home-article-top">
+                        <img src="/images/doctor.png"
+                             alt="Doctor"
+                             class="home-article-avatar"
+                             onerror="this.style.display='none';" />
+
+                        <div class="home-article-meta">
+                            <h6>
+                                @(string.IsNullOrWhiteSpace(item.AuthorName)
+                                                            ? "Müəllif qeyd olunmayıb"
+                                                            : item.AuthorName)
+                                                                          </h6>
+
+                            <span>
+                                @(string.IsNullOrWhiteSpace(item.AuthorSpecialty)
+                                                            ? "İxtisas qeyd olunmayıb"
+                                                            : item.AuthorSpecialty)
+                                                                               </span>
+                                                                           </div>
+                                                                       </div>
+
+                    <h3 class="home-article-title">
+                        <a href="/Articles/@item.Slug">
+                            @item.Title
+                        </a>
+                    </h3>
+
+                    <p class="home-article-summary">
+                        @(
+                                            string.IsNullOrWhiteSpace(item.Summary)
+                                            ? "Qısa məzmun əlavə edilməyib."
+                                            : (item.Summary.Length > 170
+                                            ? item.Summary.Substring(0, 170) + "..."
+                                            : item.Summary)
+                                            )
+                </p>
+
+                    <a href="/Articles/@item.Slug" class="home-article-link">
+                        Daha çox oxu →
+                    </a>
+                </article>
+                        }
+        </div>
+
+        <div class="home-articles-footer">
+            <a class="home-articles-button" href="/Articles">
+                Bütün məqalələr
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="contacts" class="page-section">
+    <div class="container">
+        <h2 class="section-title">Əlaqə</h2>
+
+        <div class="two-col-grid">
+            <div class="soft-card">
+                <h3>Bizimlə əlaqə</h3>
+                <p>E-poçt: <a href="mailto:copy4hub@gmail.com">copy4hub@gmail.com</a></p>
+                <p>Telegram: <a href="https://t.me/webdevis">@@webdevis</a></p>
+            </div>
+
+            <div class="soft-card">
+                <h3>Mütəxəssislər üçün</h3>
+                <p>
+                    Həkim/klinika kimi qoşulmaq istəyirsiniz? İxtisasınızı və üstünlük verdiyiniz
+                    qrafiki yazın. Sürətli start üçün kömək edəcəyik.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="policy" class="page-section">
+    <div class="container">
+        <h2 class="section-title">Qısa siyasət və məlumatların emalı</h2>
+
+        <div class="soft-card">
+            <p><strong>Nələri toplayırıq:</strong> ad, əlaqə məlumatları və seçilmiş qəbul vaxtı.</p>
+            <p><strong>Saxlama:</strong> məlumatlar təhlükəsiz serverlərdə saxlanılır.</p>
+            <p><strong>Məlumatların ötürülməsi:</strong> qəbulu təşkil etmək üçün yalnız zəruri informasiyanı həkim/klinikaya veririk.</p>
+        </div>
+    </div>
+</section>
 
 <div class="modal-backdrop" id="pricingModal" aria-hidden="true">
-    <div class="modal">
-        <header>
-            <h2>Həkimlər üçün tariflər</h2>
-            <button class="close" id="pricingClose" type="button">✕</button>
-        </header>
+    <div class="pricing-modal" role="dialog" aria-modal="true" aria-labelledby="pricingTitle">
+        <div class="pricing-modal-header">
+            <h2 id="pricingTitle">Həkimlər üçün tariflər</h2>
+            <button class="pricing-close" id="pricingClose" type="button" aria-label="Bağla">✕</button>
+        </div>
+
+        <div class="pricing-modal-body">
+            <p class="pricing-intro">
+                MedZapis üçün yalnız bir tarif var: bütün imkanlar ayda cəmi <strong>1 AZN</strong>.
+                İlin sonuna qədər xidmətdən pulsuz istifadə edib hər şeyi rahat sınaqdan keçirə bilərsiniz.
+            </p>
+
+            <div class="pricing-plan-card">
+                <div class="pricing-plan-top">
+                    <div>
+                        <div class="pricing-plan-name">BASIC</div>
+                        <div class="pricing-plan-price">1 AZN <span>/ ay</span></div>
+                    </div>
+
+                    <div class="pricing-badge">Aktiv plan</div>
+                </div>
+
+                <ul class="pricing-feature-list">
+                    <li>Həkim üçün şəxsi səhifə (unikal URL) + QR-kod</li>
+                    <li>Onlayn qeydiyyat</li>
+                    <li>Həkim kabineti (PWA): əsas ekrana əlavə etmə, son məlumatların oflayn görünüşü</li>
+                    <li>Müraciətlər siyahısı: tarix/vaxt, status, şərh</li>
+                    <li>Təqvimə abunə (ICS/Webcal)</li>
+                    <li>Adminlə əlaqə: “Gələnlər” və “Adminə yaz”</li>
+                    <li>Pasiyentlər (Micro-CRM): yazılardan avtomatik toplama, təkrarlananların birləşdirilməsi, axtarış/filtr, ilk/son ziyarət, ziyarətlərin sayğacı</li>
+                    <li>Analitika: qeydiyyatlar və unikal pasiyentlər; Line/Bar qrafik; 7/30/90 gün diapazonu</li>
+                    <li>Kabinetdə RU / AZ / EN dilləri</li>
+                    <li>Yeni yazılar barədə həkimə e-mail — daxildir</li>
+                    <li>CSV ixracı (pasiyentlər/müraciətlər)</li>
+                    <li>Pasiyent üzrə qeydlər, teqlər və statuslar (inkişafdadır)</li>
+                    <li>24/7 prioritet dəstək</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
 <button class="ask-admin-btn" id="askAdminBtn" aria-label="Adminə sual verin">?</button>
+@section Scripts {
+    <script>
+        const pricingBtn = document.getElementById("pricingBtn");
+        const pricingModal = document.getElementById("pricingModal");
+        const pricingClose = document.getElementById("pricingClose");
+
+        if (pricingBtn && pricingModal) {
+            pricingBtn.addEventListener("click", function () {
+                pricingModal.classList.add("active");
+                pricingModal.setAttribute("aria-hidden", "false");
+                document.body.style.overflow = "hidden";
+            });
+        }
+
+        if (pricingClose && pricingModal) {
+            pricingClose.addEventListener("click", function () {
+                pricingModal.classList.remove("active");
+                pricingModal.setAttribute("aria-hidden", "true");
+                document.body.style.overflow = "";
+            });
+        }
+
+        if (pricingModal) {
+            pricingModal.addEventListener("click", function (e) {
+                if (e.target === pricingModal) {
+                    pricingModal.classList.remove("active");
+                    pricingModal.setAttribute("aria-hidden", "true");
+                    document.body.style.overflow = "";
+                }
+            });
+        }
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && pricingModal?.classList.contains("active")) {
+                pricingModal.classList.remove("active");
+                pricingModal.setAttribute("aria-hidden", "true");
+                document.body.style.overflow = "";
+            }
+        });
+    </script>
+}
