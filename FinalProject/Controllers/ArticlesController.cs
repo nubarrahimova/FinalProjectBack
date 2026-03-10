@@ -27,6 +27,7 @@ namespace FinalProject.Controllers
         public async Task<IActionResult> Detail(string slug)
         {
             var article = await _context.Articles
+                .Include(x => x.Doctor)
                 .FirstOrDefaultAsync(x => x.IsPublished && x.Slug == slug);
 
             if (article == null)
