@@ -1,8 +1,10 @@
-using FinalProject.Data;
+﻿using FinalProject.Data;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace FinalProject;
 
@@ -10,8 +12,27 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
+        var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("az"),
+    new CultureInfo("tr"),
+    new CultureInfo("ru"),
+    new CultureInfo("es"),
+    new CultureInfo("fr")
+};
+        var localizationOptions = new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new RequestCulture("en"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures
+        };
         var builder = WebApplication.CreateBuilder(args);
-
+        builder.Services.AddLocalization(options => options.ResourcesPath = "");
+        builder.Services.AddHttpClient();
+        builder.Services.AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
         builder.Services.AddControllersWithViews(options =>
         {
             options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
@@ -42,6 +63,15 @@ public class Program
         });
 
         var app = builder.Build();
+        localizationOptions.RequestCultureProviders = new IRequestCultureProvider[]
+{
+    new CookieRequestCultureProvider
+    {
+        CookieName = CookieRequestCultureProvider.DefaultCookieName
+    },
+    new AcceptLanguageHeaderRequestCultureProvider()
+};
+
 
         if (!app.Environment.IsDevelopment())
         {
@@ -51,6 +81,7 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        app.UseRequestLocalization(localizationOptions);
         app.UseRouting();
 
         app.UseAuthentication();

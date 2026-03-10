@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+
+ 
+  
+
+  <data name="Appointment" xml:space="preserve">
+    <value>Записаться на прием</value>
+  </data>
+  <data name="Cabinet" xml:space="preserve">
+    <value>Кабинет</value>
+  </data>
+
+  <data name="Welcome" xml:space="preserve">
+    <value>Добро пожаловать</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+
+
+
+ <data name="SiteName" xml:space="preserve">
+    <value>МедЗапись</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Выбор языка</value>
+  </data>
+  <data name="AZ" xml:space="preserve">
+    <value>АЗ</value>
+  </data>
+  <data name="EN" xml:space="preserve">
+    <value>АН</value>
+  </data>
+  <data name="RU" xml:space="preserve">
+    <value>РУ</value>
+  </data>
+  <data name="BookAppointment" xml:space="preserve">
+    <value>Записаться на прием</value>
+  </data>
+  <data name="MainNavigation" xml:space="preserve">
+    <value>Основная навигация</value>
+  </data>
+  <data name="Articles" xml:space="preserve">
+    <value>Статьи</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>О нас</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="Policy" xml:space="preserve">
+    <value>Политика</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Панель управления</value>
+  </data>
+  <data name="DoctorAdminLogin" xml:space="preserve">
+    <value>Вход для врачей/админов</value>
+  </data>
+
+
+ <data name="PageTitle" xml:space="preserve">
+    <value>Главная страница</value>
+  </data>
+
+  <data name="HeroTitle" xml:space="preserve">
+    <value>Онлайн запись к врачу — просто, безопасно, официально</value>
+  </data>
+  <data name="HeroDescription" xml:space="preserve">
+    <value>— это платформа онлайн-записи для частных специалистов и клиник. Мы фокусируемся на прозрачности правил и защите данных, чтобы вы чувствовали себя уверенно.</value>
+  </data>
+  <data name="TestModeMessage1" xml:space="preserve">
+    <value>В настоящее время MedZapis находится в режиме публичного тестирования. Мы постепенно добавляем функции. Если вы заметили какие-либо неполадки, пожалуйста, напишите на</value>
+  </data>
+  <data name="TestModeMessage2" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Thanks" xml:space="preserve">
+    <value>Спасибо!</value>
+  </data>
+  <data name="FindDoctor" xml:space="preserve">
+    <value>Найти врача</value>
+  </data>
+  <data name="PricingForDoctors" xml:space="preserve">
+    <value>Тарифы для врачей</value>
+  </data>
+  <data name="Feature1" xml:space="preserve">
+    <value>Понятные условия: краткая</value>
+  </data>
+  <data name="Feature2" xml:space="preserve">
+    <value>Напоминания и добавление в календарь (ICS)</value>
+  </data>
+  <data name="Feature3" xml:space="preserve">
+    <value>Данные шифруются и не передаются третьим лицам без согласия</value>
+  </data>
+  <data name="PhonePreview" xml:space="preserve">
+    <value>Предпросмотр MedZapis</value>
+  </data>
+  <data name="ScreenshotAlt" xml:space="preserve">
+    <value>Скриншот MedZapis</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>О сервисе</value>
+  </data>
+  <data name="AboutDescription" xml:space="preserve">
+    <value>MedZapis — технологическая платформа для быстрой записи пациентов к врачу и удобного управления расписанием специалистов. Мы не оказываем медицинские услуги и не вмешиваемся в отношения "врач-пациент".</value>
+  </data>
+  <data name="Feature1Title" xml:space="preserve">
+    <value>Запись за 1-2 минуты</value>
+  </data>
+  <data name="Feature1Description" xml:space="preserve">
+    <value>Выберите специалиста и время — подтверждение приходит по email/мессенджер.</value>
+  </data>
+  <data name="Feature2Title" xml:space="preserve">
+    <value>Календарь и напоминания</value>
+  </data>
+  <data name="Feature2Description" xml:space="preserve">
+    <value>Добавьте прием в календарь одним кликом. Уведомления, чтобы не забыть.</value>
+  </data>
+  <data name="Feature3Title" xml:space="preserve">
+    <value>Прозрачность</value>
+  </data>
+  <data name="Feature3Description" xml:space="preserve">
+    <value>Краткая политика и дисклеймер внизу страницы, чтобы заранее понять правила.</value>
+  </data>
+  <data name="FAQTitle" xml:space="preserve">
+    <value>Часто задаваемые вопросы о MedZapis</value>
+  </data>
+  <data name="FAQ1Question" xml:space="preserve">
+    <value>Платная ли MedZapis для пациентов?</value>
+  </data>
+  <data name="FAQ1Answer" xml:space="preserve">
+    <value>Онлайн-запись через MedZapis для пациентов бесплатна. Вы оплачиваете только прием выбранного врача или клиники. MedZapis не берет дополнительной комиссии с пациентов и не вмешивается в цены.</value>
+  </data>
+  <data name="FAQ2Question" xml:space="preserve">
+    <value>Нужно ли скачивать приложение?</value>
+  </data>
+  <data name="FAQ2Answer" xml:space="preserve">
+    <value>Нет. MedZapis работает как обычный сайт. Вы также можете установить его как приложение, используя функцию "Добавить на главный экран" в мобильном браузере.</value>
+  </data>
+  <data name="FAQ3Question" xml:space="preserve">
+    <value>Что MedZapis дает врачам?</value>
+  </data>
+  <data name="FAQ3Answer" xml:space="preserve">
+    <value>Для врачей MedZapis — это небольшой онлайн-кабинет: единый календарь записей, список пациентов и простая статистика. Это помогает планировать рабочий день, отслеживать записи и уменьшать количество неявок.</value>
+  </data>
+  <data name="FAQ4Question" xml:space="preserve">
+    <value>Кто несет ответственность за медицинскую помощь?</value>
+  </data>
+  <data name="FAQ4Answer" xml:space="preserve">
+    <value>Ответственность за качество и содержание медицинской помощи несет непосредственно врач или клиника.</value>
+  </data>
+  <data name="FAQ5Question" xml:space="preserve">
+    <value>Насколько безопасны мои данные?</value>
+  </data>
+  <data name="FAQ5Answer" xml:space="preserve">
+    <value>Мы собираем только минимум данных, необходимых для записи. Данные передаются по зашифрованным каналам и хранятся на защищенных серверах.</value>
+  </data>
+  <data name="ArticlesTitle" xml:space="preserve">
+    <value>Статьи наших врачей</value>
+  </data>
+  <data name="ArticlesDescription" xml:space="preserve">
+    <value>Краткие пояснения от практикующих врачей: симптомы, анализы и когда нужно обратиться к специалисту.</value>
+  </data>
+  <data name="Doctor" xml:space="preserve">
+    <value>Врач</value>
+  </data>
+  <data name="AuthorNotSpecified" xml:space="preserve">
+    <value>Автор не указан</value>
+  </data>
+  <data name="SpecialtyNotSpecified" xml:space="preserve">
+    <value>Специальность не указана</value>
+  </data>
+  <data name="NoSummary" xml:space="preserve">
+    <value>Краткое содержание не добавлено.</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Читать далее</value>
+  </data>
+  <data name="AllArticles" xml:space="preserve">
+    <value>Все статьи</value>
+  </data>
+
+  <data name="ContactUs" xml:space="preserve">
+    <value>Свяжитесь с нами</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ForSpecialists" xml:space="preserve">
+    <value>Для специалистов</value>
+  </data>
+  <data name="ForSpecialistsDescription" xml:space="preserve">
+    <value>Хотите подключиться как врач/клиника? Напишите вашу специальность и предпочтительный график. Мы поможем быстро начать работу.</value>
+  </data>
+  <data name="PolicyTitle" xml:space="preserve">
+    <value>Краткая политика и обработка данных</value>
+  </data>
+  <data name="WhatWeCollect" xml:space="preserve">
+    <value>Что мы собираем</value>
+  </data>
+  <data name="WhatWeCollectDescription" xml:space="preserve">
+    <value>имя, контактные данные и выбранное время приема.</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>Хранение</value>
+  </data>
+  <data name="StorageDescription" xml:space="preserve">
+    <value>данные хранятся на защищенных серверах.</value>
+  </data>
+  <data name="DataTransfer" xml:space="preserve">
+    <value>Передача данных</value>
+  </data>
+  <data name="DataTransferDescription" xml:space="preserve">
+    <value>мы предоставляем врачу/клинике только необходимую информацию для организации приема.</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Все права защищены</value>
+  </data>
+  <data name="SiteCredit" xml:space="preserve">
+    <value>Сайт разработан внутренними ресурсами —</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>Дисклеймер</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
+  <data name="AskAdmin" xml:space="preserve">
+    <value>Спросить админа</value>
+  </data>
+</root>

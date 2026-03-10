@@ -1,4 +1,5 @@
 ﻿using FinalProject.Data;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,5 +26,7 @@ namespace FinalProject.Controllers
 
             return View();
         }
+
+      
     }
 }
