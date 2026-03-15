@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject FinalProject.Data.AppDbContext DbContext
+<!DOCTYPE html>
 <html lang="az">
 <head>
     <meta charset="utf-8">
@@ -204,10 +205,84 @@
                 transform: translateX(40px);
             }
         }
+
+        .admin-question-link {
+            display: flex !important;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-question-badge {
+            margin-left: auto;
+            min-width: 24px;
+            height: 24px;
+            padding: 0 8px;
+            border-radius: 999px;
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.24);
+        }
+
+        .active-admin-link {
+            background: linear-gradient(90deg, #eef5ff 0%, #f8fbff 100%) !important;
+            border-left: 4px solid #2f80ed !important;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 8px 18px rgba(47, 128, 237, 0.08);
+        }
+
+            .active-admin-link .menu-title,
+            .active-admin-link .menu-icon {
+                color: #2f80ed !important;
+                font-weight: 700;
+            }
+
+        .sidebar .nav .nav-item .nav-link {
+            transition: all 0.2s ease;
+        }
+
+            .sidebar .nav .nav-item .nav-link:hover {
+                background: #f8fbff;
+                border-radius: 0 12px 12px 0;
+            }
     </style>
 </head>
 
 <body>
+    @{
+        var unreadQuestionCount = 0;
+        var newAppointmentCount = 0;
+
+        if (User.IsInRole("Admin"))
+        {
+            unreadQuestionCount = DbContext.AdminQuestions.Count(x => !x.IsRead);
+            newAppointmentCount = DbContext.Appointments.Count(x => x.Status == "New");
+        }
+        else if (User.IsInRole("Doctor"))
+        {
+            var currentUserName = User.Identity?.Name;
+            var doctorId = 0;
+
+            if (!string.IsNullOrWhiteSpace(currentUserName))
+            {
+                doctorId = DbContext.Doctors
+                .Where(d => d.AppUser != null && d.AppUser.UserName == currentUserName)
+                .Select(d => d.Id)
+                .FirstOrDefault();
+            }
+
+            newAppointmentCount = DbContext.Appointments
+            .Count(x => x.Status == "New" && x.DoctorId == doctorId);
+        }
+    }
+    @{
+        var currentPath = Context.Request.Path.Value?.ToLower() ?? "";
+    }
     <div class="container-scroller">
 
         <nav class="navbar col-lg-12 col-12 fixed-top d-flex flex-row"
@@ -216,8 +291,11 @@
             <div class="navbar-brand-wrapper d-flex justify-content-center">
                 <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
 
-                    <a class="navbar-brand brand-logo" href="/admin/appointments">
-                        <img src="~/assets/admin/images/logo.svg" alt="logo" />
+                    <a class="navbar-brand brand-logo" href="/admin/dashboard"
+                       style="display:flex; align-items:center; gap:6px; font-size:22px; font-weight:700; color:#2563eb; text-decoration:none;">
+
+                        <i class="mdi mdi-hospital-building" style="font-size:26px;"></i>
+                        MedZapis
                     </a>
 
                     <a class="navbar-brand brand-logo-mini" href="/admin/appointments">
@@ -264,27 +342,37 @@
                 <ul class="nav">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/dashboard">
+                        <a class="nav-link @(currentPath.Contains("/admin/dashboard") ? "active-admin-link" : "")" href="/admin/dashboard">
                             <i class="mdi mdi-view-dashboard menu-icon"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/appointments">
+                        <a class="nav-link admin-question-link @(currentPath.Contains("/admin/appointments") ? "active-admin-link" : "")"
+                           href="/admin/appointments">
+
                             <i class="mdi mdi-calendar-check menu-icon"></i>
+
                             <span class="menu-title">Randevular</span>
+
+                            @if (newAppointmentCount > 0)
+                            {
+                                <span class="admin-question-badge">@newAppointmentCount</span>
+                            }
+
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/articles">
+                        <a class="nav-link @(currentPath.Contains("/admin/articles") ? "active-admin-link" : "")" href="/admin/articles">
                             <i class="mdi mdi-file-document menu-icon"></i>
                             <span class="menu-title">Məqalələr</span>
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/doctors">
+                        <a class="nav-link @(currentPath.Contains("/admin/doctors") ? "active-admin-link" : "")" href="/admin/doctors">
                             <i class="mdi mdi-doctor menu-icon"></i>
                             <span class="menu-title">Həkimlər</span>
                         </a>
@@ -296,6 +384,21 @@
                             <span class="menu-title">Sayta keç</span>
                         </a>
                     </li>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link admin-question-link @(currentPath.Contains("/admin/questions") ? "active-admin-link" : "")" href="/admin/questions">
+                                <i class="mdi mdi-message-text-outline menu-icon"></i>
+                                <span class="menu-title">Suallar</span>
+
+                                @if (unreadQuestionCount > 0)
+                                {
+                                    <span class="admin-question-badge">@unreadQuestionCount</span>
+                                }
+                            </a>
+                        </li>
+                    }
 
                 </ul>
             </nav>

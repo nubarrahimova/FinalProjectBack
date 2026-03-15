@@ -1,0 +1,53 @@
+﻿@model FinalProject.Models.AdminQuestion
+
+@{
+    ViewData["Title"] = "Mesaj";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header mb-4 d-flex justify-content-between align-items-center">
+    <div>
+        <h3 class="page-title">Mesaj detalları</h3>
+        <p style="color:#6c757d; margin-bottom:0;">İstifadəçinin göndərdiyi sual</p>
+    </div>
+
+    <a href="/admin/questions" class="btn btn-light">← Geri</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="mb-3">
+            <strong>Status:</strong>
+            @if (Model.IsRead)
+            {
+                <span class="status-pill status-read">Oxunub</span>
+            }
+            else
+            {
+                <span class="status-pill status-new">Yeni</span>
+            }
+        </div>
+
+        <div class="mb-3"><strong>Kimdir:</strong> @Model.UserType</div>
+        <div class="mb-3"><strong>Ad:</strong> @Model.FullName</div>
+        <div class="mb-3"><strong>Telefon:</strong> @Model.Phone</div>
+        <div class="mb-3"><strong>Email:</strong> @(string.IsNullOrWhiteSpace(Model.Email) ? "-" : Model.Email)</div>
+        <div class="mb-3"><strong>Mövzu:</strong> @Model.Subject</div>
+        <div class="mb-3"><strong>Tarix:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</div>
+
+        <div class="mb-3">
+            <strong>Mesaj:</strong>
+            <div style="margin-top:10px; padding:16px; background:#f8f9fa; border-radius:12px; border:1px solid #eceff3; white-space:pre-wrap;">
+                @Model.Message
+            </div>
+        </div>
+
+        <form action="/admin/questions/delete/@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger"
+                    onclick="return confirm('Bu mesaj silinsin?');">
+                Sil
+            </button>
+        </form>
+    </div>
+</div>

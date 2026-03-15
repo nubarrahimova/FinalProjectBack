@@ -22,7 +22,7 @@ namespace FinalProject.Models
         [Required, DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
-        // "15:00" kimi saxlayacağıq (sonra istəsən TimeSpan edərik)
+       
         [Required, StringLength(20)]
         public string Time { get; set; } = "";
 

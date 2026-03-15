@@ -111,5 +111,7 @@ namespace FinalProject.Controllers
             await _signInManager.SignOutAsync();
             return Redirect("/Account/Login");
         }
+
+      
     }
 }

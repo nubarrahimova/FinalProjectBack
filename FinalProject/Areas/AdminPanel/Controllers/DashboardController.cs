@@ -40,6 +40,22 @@ namespace FinalProject.Areas.AdminPanel.Controllers
                 model.TotalArticles = await _context.Articles.CountAsync();
                 model.TotalDoctors = await _context.Doctors.CountAsync();
 
+                ViewBag.LastAppointmentUpdate = await _context.Appointments
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Select(x => (DateTime?)x.CreatedAt)
+                    .FirstOrDefaultAsync();
+
+                ViewBag.LastNewAppointmentUpdate = await _context.Appointments
+                    .Where(x => x.Status == "New")
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Select(x => (DateTime?)x.CreatedAt)
+                    .FirstOrDefaultAsync();
+
+                ViewBag.LastArticleUpdate = await _context.Articles
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Select(x => (DateTime?)x.CreatedAt)
+                    .FirstOrDefaultAsync();
+
                 model.ShowDoctorColumn = true;
 
                 model.RecentAppointments = await _context.Appointments
@@ -77,17 +93,13 @@ namespace FinalProject.Areas.AdminPanel.Controllers
                 var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 if (string.IsNullOrWhiteSpace(currentUserId))
-                {
                     return Forbid();
-                }
 
                 var currentDoctor = await _context.Doctors
                     .FirstOrDefaultAsync(x => x.AppUserId == currentUserId);
 
                 if (currentDoctor == null)
-                {
                     return Forbid();
-                }
 
                 model.TotalAppointments = await _context.Appointments
                     .CountAsync(x => x.DoctorId == currentDoctor.Id);
@@ -106,6 +118,24 @@ namespace FinalProject.Areas.AdminPanel.Controllers
 
                 model.TotalDoctors = 1;
                 model.ShowDoctorColumn = false;
+
+                ViewBag.LastAppointmentUpdate = await _context.Appointments
+                    .Where(x => x.DoctorId == currentDoctor.Id)
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Select(x => (DateTime?)x.CreatedAt)
+                    .FirstOrDefaultAsync();
+
+                ViewBag.LastNewAppointmentUpdate = await _context.Appointments
+                    .Where(x => x.DoctorId == currentDoctor.Id && x.Status == "New")
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Select(x => (DateTime?)x.CreatedAt)
+                    .FirstOrDefaultAsync();
+
+                ViewBag.LastArticleUpdate = await _context.Articles
+                    .Where(x => x.DoctorId == currentDoctor.Id)
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Select(x => (DateTime?)x.CreatedAt)
+                    .FirstOrDefaultAsync();
 
                 model.RecentAppointments = await _context.Appointments
                     .Where(x => x.DoctorId == currentDoctor.Id)

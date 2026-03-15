@@ -1,0 +1,163 @@
+﻿@model List<FinalProject.Models.AdminQuestion>
+
+@{
+    ViewData["Title"] = "Suallar";
+    Layout = "~/Areas/AdminPanel/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .status-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 84px;
+        height: 34px;
+        padding: 0 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        border: 1px solid transparent;
+        white-space: nowrap;
+    }
+
+    .status-new {
+        background: #fff7e6;
+        color: #b26a00;
+        border-color: #ffe2a8;
+    }
+
+    .status-read {
+        background: #eaf8f0;
+        color: #157347;
+        border-color: #bde7cb;
+    }
+
+    .question-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .table-action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 64px;
+        height: 34px;
+        padding: 0 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #fff;
+    }
+
+    .action-open {
+        color: #2f80ed;
+        border-color: #cfe0fb;
+        background: #f5f9ff;
+    }
+
+        .action-open:hover {
+            background: #2f80ed;
+            border-color: #2f80ed;
+            color: #fff;
+        }
+
+    .action-delete {
+        color: #c0392b;
+        border-color: #f3c6c1;
+        background: #fff5f4;
+    }
+
+        .action-delete:hover {
+            background: #e74c3c;
+            border-color: #e74c3c;
+            color: #fff;
+        }
+
+    .table td,
+    .table th {
+        vertical-align: middle;
+    }
+
+    .table-hover tbody tr:hover {
+        background: #f8fbff;
+    }
+</style>
+
+<div class="page-header mb-4">
+    <h3 class="page-title">Adminə göndərilən suallar</h3>
+    <p style="color:#6c757d; margin-bottom:0;">Saytdan gələn bütün mesajlar</p>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Kimdir</th>
+                        <th>Ad</th>
+                        <th>Telefon</th>
+                        <th>Mövzu</th>
+                        <th>Tarix</th>
+                        <th>Əməliyyat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (item.IsRead)
+                                    {
+                                        <span class="status-pill status-read">Oxunub</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-pill status-new">Yeni</span>
+                                    }
+                                </td>
+                                <td>@item.UserType</td>
+                                <td>@item.FullName</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Subject</td>
+                                <td>@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>
+                                    <div class="question-actions">
+                                        <a href="/admin/questions/@item.Id" class="table-action-btn action-open">
+                                            Aç
+                                        </a>
+
+                                        <form action="/admin/questions/delete/@item.Id" method="post" style="display:inline;">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit"
+                                                    class="table-action-btn action-delete"
+                                                    onclick="return confirm('Bu mesaj silinsin?');">
+                                                Sil
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center">Hələ mesaj yoxdur.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

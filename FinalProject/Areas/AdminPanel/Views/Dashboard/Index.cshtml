@@ -23,6 +23,12 @@
             <div>
                 <div class="dashboard-card-title">Ümumi randevu</div>
                 <div class="dashboard-card-value">@Model.TotalAppointments</div>
+                <div class="dashboard-card-meta">
+                    Son müraciət:
+                    @(ViewBag.LastAppointmentUpdate != null
+                                        ? ((DateTime)ViewBag.LastAppointmentUpdate).ToString("dd.MM.yyyy HH:mm")
+                                        : "-")
+                </div>
             </div>
             <div class="dashboard-card-icon">
                 <i class="mdi mdi-calendar-text"></i>
@@ -35,6 +41,12 @@
             <div>
                 <div class="dashboard-card-title">Yeni randevu</div>
                 <div class="dashboard-card-value">@Model.NewAppointments</div>
+                <div class="dashboard-card-meta">
+                    Son müraciət:
+                    @(ViewBag.LastNewAppointmentUpdate != null
+                                        ? ((DateTime)ViewBag.LastNewAppointmentUpdate).ToString("dd.MM.yyyy HH:mm")
+                                        : "-")
+                </div>
             </div>
             <div class="dashboard-card-icon">
                 <i class="mdi mdi-timer-sand"></i>
@@ -71,6 +83,12 @@
             <div>
                 <div class="dashboard-card-title">Məqalə sayı</div>
                 <div class="dashboard-card-value">@Model.TotalArticles</div>
+                <div class="dashboard-card-meta">
+                    Son məqalə:
+                    @(ViewBag.LastArticleUpdate != null
+                                        ? ((DateTime)ViewBag.LastArticleUpdate).ToString("dd.MM.yyyy HH:mm")
+                                        : "-")
+                </div>
             </div>
             <div class="dashboard-card-icon">
                 <i class="mdi mdi-file-document-outline"></i>
@@ -227,6 +245,14 @@
         font-size: 34px;
         font-weight: 700;
         line-height: 1;
+    }
+
+    .dashboard-card-meta {
+        margin-top: 10px;
+        font-size: 12px;
+        font-weight: 500;
+        opacity: 0.9;
+        line-height: 1.4;
     }
 
     .dashboard-card-icon i {

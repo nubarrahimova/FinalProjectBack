@@ -61,5 +61,100 @@
     </footer>
 
     @RenderSection("Scripts", required: false)
+
+    <!-- ASK ADMIN BUTTON -->
+    <button class="ask-admin-btn" type="button" onclick="openAskAdminModal()">?</button>
+
+    <!-- OVERLAY -->
+    <div class="ask-admin-overlay" id="askAdminOverlay" onclick="closeAskAdminModal()"></div>
+
+    <!-- MODAL -->
+    <div class="ask-admin-modal" id="askAdminModal">
+        <div class="ask-admin-modal-box">
+
+            <button class="ask-admin-close" onclick="closeAskAdminModal()">×</button>
+
+            <h2 class="ask-admin-title">Adminə sual verin</h2>
+
+            <form asp-area=""
+                  asp-controller="AdminQuestions"
+                  asp-action="Send"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div class="ask-admin-group">
+                    <label>Siz kimsiniz?</label>
+                    <select name="UserType" class="ask-admin-input">
+                        <option value="Pasiyent">Pasiyent</option>
+                        <option value="Həkim">Həkim</option>
+                        <option value="Klinika nümayəndəsi">Klinika nümayəndəsi</option>
+                        <option value="Digər">Digər</option>
+                    </select>
+                </div>
+
+                <div class="ask-admin-group">
+                    <label>Ad, Soyad *</label>
+                    <input type="text" name="FullName" class="ask-admin-input" required>
+                </div>
+
+                <div class="ask-admin-group">
+                    <label>Telefon / WhatsApp *</label>
+                    <input type="text" name="Phone" class="ask-admin-input" placeholder="+994..." required>
+                </div>
+
+                <div class="ask-admin-group">
+                    <label>E-mail</label>
+                    <input type="email" name="Email" class="ask-admin-input">
+                </div>
+
+                <div class="ask-admin-group">
+                    <label>Mövzu *</label>
+                    <input type="text" name="Subject" class="ask-admin-input" required>
+                </div>
+
+                <div class="ask-admin-group">
+                    <label>Mesaj *</label>
+                    <textarea name="Message" class="ask-admin-textarea" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="ask-admin-submit">Göndər</button>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+
+        function openAskAdminModal(){
+
+            var modal = document.getElementById("askAdminModal");
+            var overlay = document.getElementById("askAdminOverlay");
+
+            modal.style.display = "grid";
+            overlay.style.display = "block";
+
+        }
+
+        function closeAskAdminModal(){
+
+            var modal = document.getElementById("askAdminModal");
+            var overlay = document.getElementById("askAdminOverlay");
+
+            modal.style.display = "none";
+            overlay.style.display = "none";
+
+        }
+
+        document.addEventListener("keydown", function(e){
+
+            if(e.key === "Escape"){
+                closeAskAdminModal();
+            }
+
+        });
+
+    </script>
 </body>
 </html>
